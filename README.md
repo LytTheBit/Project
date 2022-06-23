@@ -24,7 +24,7 @@ Ecco un immagine di riferimento (chiedo scusa a tutti per la grafica, ma non son
 L'ambientazione e le immagini potrebbero cambiare
 
 
-I prossimi obbiettivi nella lista sono
+I prossimi obbiettivi nella lista sono \n
 -implementare lo unit-testing (da aggiornare via via)
 -aggiungere le statistiche ai pezzi
 -creare nuovi pezzi
