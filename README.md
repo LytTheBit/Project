@@ -24,13 +24,23 @@ Ecco un immagine di riferimento (chiedo scusa a tutti per la grafica, ma non son
 L'ambientazione e le immagini potrebbero cambiare
 
 
-I prossimi obbiettivi nella lista sono \n
+I prossimi obbiettivi nella lista sono:
+
 -implementare lo unit-testing (da aggiornare via via)
+
 -aggiungere le statistiche ai pezzi
+
 -creare nuovi pezzi
+
 -implementare il sistema a turni (tramite una classe apposita)
+
 -rendere funzionanti le varie fasi di un turno
+
 -creare una cpu funzionante
+
 -abbellire l'interfaccia generale
+
 -aggiungere il cambio visuale durante l'attacco
+
 -implementare un menu
+
