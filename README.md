@@ -3,12 +3,12 @@ Progetto per l'università
 
 Progetto ispirato dalla saga di "fire ebmblem", e in particolare da fire ebmlem 7 e fire ebmlem 8 per game boy.
 
-L'obbiettivo è quello di creare un gioco a turni. Ogni turno si muoverà un pezzo. 
-Ogni pezzo sarà unico, con statistiche diverse (e se il tempo lo permetterà) abilità uniche.
+L'obbiettivo è quello di creare un gioco a turni. Ogni turno si muoverà un pezzo, una volta il giocatore, e una volta il computer. 
+Ogni pezzo avrà un aspetto unico e con statistiche diverse, e (se il tempo lo permetterà) abilità uniche.
 
 ![Fire_emblem_map](https://user-images.githubusercontent.com/102967110/175330515-b18d736e-463f-4724-b0db-20b7554673bb.png)
 
-Un obbiettivo sarebbe quello di poter cambiare visuale durante le fasi di "attacco" per rendere più partecipe il giocatore di quello che sta accadendo.
+Un obbiettivo sarebbe quello di poter cambiare visuale durante le fasi di "attacco" per rendere più partecipe il giocatore di quello che sta accadendo. Mostrando punti vita e attacci del pezzo
 
 ![Fire_emblem_fight](https://user-images.githubusercontent.com/102967110/175329978-1c87156b-9cea-4c34-869d-1b0696174d12.png)
 
@@ -22,3 +22,15 @@ Ecco un immagine di riferimento (chiedo scusa a tutti per la grafica, ma non son
 ![pixilart-drawing](https://user-images.githubusercontent.com/102967110/175332721-9f96f952-d41d-427b-adb4-81ad7894badf.png)
 
 L'ambientazione e le immagini potrebbero cambiare
+
+
+I prossimi obbiettivi nella lista sono
+-implementare lo unit-testing (da aggiornare via via)
+-aggiungere le statistiche ai pezzi
+-creare nuovi pezzi
+-implementare il sistema a turni (tramite una classe apposita)
+-rendere funzionanti le varie fasi di un turno
+-creare una cpu funzionante
+-abbellire l'interfaccia generale
+-aggiungere il cambio visuale durante l'attacco
+-implementare un menu
