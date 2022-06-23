@@ -1,10 +1,10 @@
 # Project
 Progetto per l'università
 
-Progetto ispirato dalla saga di "fire ebmblem", e in particolare da fire ebmlem 7 e fire ebmlem 8 per game boy.
+Progetto ispirato dalla saga di "Fire Emblem", e in particolare da Fire Emblem: The Blazing Blade e Fire Emblem: The Sacred Stones per Game Boy Advance.
 
-L'obbiettivo è quello di creare un gioco a turni. Ogni turno si muoverà un pezzo, una volta il giocatore, e una volta il computer. 
-Ogni pezzo avrà un aspetto unico e con statistiche diverse, e (se il tempo lo permetterà) abilità uniche.
+L'obbiettivo è quello di creare un Gioco strategico a turni. Ogni turno si muoverà un pezzo, una volta il giocatore, e una volta il computer. 
+Ogni pezzo avrà un aspetto unico e statistiche diverse, e (se il tempo lo permetterà) abilità uniche.
 
 ![Fire_emblem_map](https://user-images.githubusercontent.com/102967110/175330515-b18d736e-463f-4724-b0db-20b7554673bb.png)
 
@@ -42,4 +42,3 @@ I prossimi obbiettivi nella lista sono:
 -aggiungere il cambio visuale durante l'attacco
 
 -implementare un menu
-
