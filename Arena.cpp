@@ -14,8 +14,8 @@ Arena::~Arena() {
 
 void Arena::inizializedTexture() {
     //la funzione che mi fa inserire la texture
-    this->texture.loadFromFile("C:/Users/franc/Desktop/Reisende/Sfondo.png");
-    this->textureViola.loadFromFile("C:/Users/franc/Desktop/Reisende/Viola.png");
+    this->texture.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Palace.png");
+    this->textureViola.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Pointer.png");
 }
 void Arena::inizializedSprite() {
     //la funzione che mi fa creare lo sprite
@@ -32,15 +32,16 @@ void Arena::inizializedSprite() {
 
     this->spriteViola.setTexture(this->textureViola);
     this->spriteViola.scale(3.f, 3.f);
+    this->spriteViola.setPosition(startingPointX, startingPointY);
 }
 
 void Arena::update(sf::Vector2i& mousePos) {
     //sposto il quadrato della selezione nella casella selezionata
-    for(int i=0; i<=9; i++){
-        for(int j=0; j<=9; j++) {
-            if (mousePos.x > (i * 32 * 3) && mousePos.y > (j * 32 * 3) &&
-                mousePos.x < ((i + 1) * 32 * 3) && mousePos.y < ((j + 1) * 32 * 3)) {
-                this->spriteViola.setPosition(i * 32 * 3.f, j * 32 * 3.f);
+    for(int i=0; i<=6; i++){
+        for(int j=0; j<=5; j++) {
+            if (mousePos.x > (startingPointX+(i * 32 * 3.f)) && mousePos.y > (startingPointY+(j * 32 * 3.f)) &&
+                mousePos.x < (startingPointX+((i + 1) * 32 * 3.f)) && mousePos.y < (startingPointY+((j + 1) * 32 * 3.f))) {
+                this->spriteViola.setPosition((startingPointX+(i * 32 * 3.f)), (startingPointY+(j * 32 * 3.f)));
             }
         }
     }
