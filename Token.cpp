@@ -4,8 +4,6 @@
 
 #include "Token.h"
 
-
-
 void Token::inizializedTexture() {
     this->textureSheet.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Soldier.png");
 }
@@ -16,14 +14,38 @@ void Token::inizializedSprite() {
     this->sprite.setPosition(startingPointX, startingPointY-96);
 }
 
-Token::Token() {
+//Costruttore
+Token::Token(int InputHp, int InputAtk, int InputDef) {
+    Hp=InputHp; //punti vita inseriti alla creazione della pedina
+    Atk=InputAtk; //attacco ...
+    Def=InputDef; //difesa ...
+
     this->inizializedTexture();
     this->inizializedSprite();
 }
-
+//Distruttore
 Token::~Token() {
 
 }
+
+//Combattimento
+void Token::attached(int AttaccoSubito) {
+    if(AttaccoSubito>=Def)
+        Hp=Hp-(AttaccoSubito-Def);
+}//funzione di prova di un possibile attacco subito
+
+//Getter delle statistiche
+int Token::GetHp() {
+    return Hp;
+}
+int Token::GetAtk() {
+    return Atk;
+}
+int Token::GetDef() {
+    return Def;
+}
+
+
 
 //FUNZIONI
 void Token::update(sf::Vector2i& mousePos){//aggiorna il token
@@ -57,6 +79,9 @@ void Token::updateMovement(sf::Vector2i& mousePos) {
 void Token::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
+
+
+
 
 
 

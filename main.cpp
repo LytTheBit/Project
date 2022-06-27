@@ -5,8 +5,8 @@ using namespace std;
 int main()
 {
     //Crea un oggetto game della classe Game, nel quale si trovano i metodi per renderizare il gioco
-    std::cout << "Simulazione start \n";
+    std::cout << "Link start \n"; //Controllo l'avvio
     Game game;
     game.run();
-    std::cout << "Simulazione end! \n";
+    std::cout << "Link end! \n"; //Controllo lo spegnimento
 }

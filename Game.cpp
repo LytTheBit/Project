@@ -6,7 +6,7 @@
 
 //--funzioni private--
 void Game::inizializedToken() {
-    this->prova= new Token();
+    this->prova= new Token(10,10,10);
 }
 void Game::inizializedWindow() {
     //crea la finestra
