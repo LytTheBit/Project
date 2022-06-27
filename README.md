@@ -18,6 +18,7 @@ Per permetterli di cambiare armi e usare oggetti.
 ![Fire_emblem_object](https://user-images.githubusercontent.com/102967110/175331459-9ffdd0bd-ddf5-4249-8415-703a657b6686.png)
 
 Ecco un immagine di riferimento (chiedo scusa a tutti per la grafica, ma non sono un disegnatore)
+
 ![pixilart-drawing (1)](https://user-images.githubusercontent.com/102967110/175394747-f18c3a0f-7112-41a9-9f33-ee9eb40ffdec.png)
 ![image](https://user-images.githubusercontent.com/102967110/175957232-ef1b3304-4b47-4b36-aa8b-252e3144d288.png)
 
