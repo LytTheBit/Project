@@ -25,20 +25,20 @@ L'ambientazione e le immagini potrebbero cambiare
 
 I prossimi obbiettivi nella lista sono:
 
--implementare lo unit-testing (da aggiornare via via)
+- [x] implementare lo unit-testing (da aggiornare via via)
 
--aggiungere le statistiche ai pezzi
+- [x] aggiungere le statistiche ai pezzi
 
--creare nuovi pezzi
+- [ ] creare nuovi pezzi
 
--implementare il sistema a turni (tramite una classe apposita)
+- [ ] implementare il sistema a turni (tramite una classe apposita)
 
--rendere funzionanti le varie fasi di un turno
+- [ ] rendere funzionanti le varie fasi di un turno
 
--creare una cpu funzionante
+- [ ] creare una cpu funzionante
 
--abbellire l'interfaccia generale
+- [ ] abbellire l'interfaccia generale
 
--aggiungere il cambio visuale durante l'attacco
+- [ ] aggiungere il cambio visuale durante l'attacco
 
--implementare un menu
+- [ ] implementare un menu
