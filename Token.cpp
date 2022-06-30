@@ -3,25 +3,24 @@
 //
 
 #include "Token.h"
+void Token::inizializedSprite(const sf::Image& image) {
+    //A seconda della variabile "aspetto" del token, li carico una texture diversa
+    this->textureSheet.loadFromImage(image);
 
-void Token::inizializedTexture() {
-    this->textureSheet.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Soldier.png");
-}
-void Token::inizializedSprite() {
     this->sprite.setTexture(this->textureSheet);
+
     this->sprite.setTextureRect(sf::IntRect(0,0,32,64));
     this->sprite.setScale(3.f,3.f);
     this->sprite.setPosition(startingPointX, startingPointY-96);
 }
 
 //Costruttore
-Token::Token(int InputHp, int InputAtk, int InputDef) {
+Token::Token(const sf::Image& image, int InputHp, int InputAtk, int InputDef) {
     Hp=InputHp; //punti vita inseriti alla creazione della pedina
     Atk=InputAtk; //attacco ...
     Def=InputDef; //difesa ...
 
-    this->inizializedTexture();
-    this->inizializedSprite();
+    this->inizializedSprite(image);
 }
 //Distruttore
 Token::~Token() {

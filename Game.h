@@ -7,6 +7,7 @@
 
 #include "Librerie.h"
 #include "Arena.h"
+#include "TurnSystem.h"
 #include "Token.h"
 
 
@@ -15,7 +16,7 @@ private:
     //Window
     sf::RenderWindow* window;
 
-    Token* prova;
+    TurnSystem* prova;
 
 
     //Arena
@@ -23,7 +24,7 @@ private:
     sf::Vector2i mousePos;
 
     //--funzioni private--
-    void inizializedToken();
+    void inizializedTurnSystem();
     void inizializedWindow();
     void inizializedArena();
 public:
@@ -36,9 +37,9 @@ public:
 
     //--funzioni pubbliche--
     void update();
-    void updateToken();
+    void updateTurnSystem();
     void updateMouse();
-    void updateViola();
+    void updatePointer();
     void renderToken();
     void renderArena();
     void render();

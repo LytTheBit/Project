@@ -6,9 +6,11 @@
 #define MAIN_CPP_TOKEN_H
 
 #include "Librerie.h"
+
 class Token{
 private:
     sf::Texture textureSheet;
+
     sf::Sprite sprite;
 
     //STATISTIC
@@ -17,13 +19,12 @@ private:
     int Def; //difesa della pedina
 
     //INIT
-    void inizializedTexture();
-    void inizializedSprite();
+    void inizializedSprite(const sf::Image& image);
 
 
 public:
     //COSTRUTTORE
-    Token(int InputHp = 10, int InputAtk = 10, int InputDef = 10);
+    Token(const sf::Image& image, int InputHp = 10, int InputAtk = 10, int InputDef = 10);
     //DISTRUTTORE
     virtual ~Token();
 

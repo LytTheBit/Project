@@ -42,6 +42,30 @@ include CMakeFiles/rules.ninja
 cmake_ninja_workdir = C$:/Users/franc/Desktop/Reisende/cmake-build-debug/
 
 #############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -58,7 +82,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 #############################################
 # Order-only phony target for Reisende
 
-build cmake_object_order_depends_target_Reisende: phony || CMakeFiles/Reisende.dir
+build cmake_object_order_depends_target_Reisende: phony || cmake_object_order_depends_target_core
 
 build CMakeFiles/Reisende.dir/main.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/main.cpp || cmake_object_order_depends_target_Reisende
   DEFINES = -DSFML_STATIC
@@ -100,6 +124,14 @@ build CMakeFiles/Reisende.dir/Token.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Us
   OBJECT_DIR = CMakeFiles\Reisende.dir
   OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
 
+build CMakeFiles/Reisende.dir/TurnSystem.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/TurnSystem.cpp || cmake_object_order_depends_target_Reisende
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\Reisende.dir\TurnSystem.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem C:/SFML/include
+  OBJECT_DIR = CMakeFiles\Reisende.dir
+  OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Reisende
@@ -108,15 +140,53 @@ build CMakeFiles/Reisende.dir/Token.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Us
 #############################################
 # Link the executable Reisende.exe
 
-build Reisende.exe: CXX_EXECUTABLE_LINKER__Reisende_Debug CMakeFiles/Reisende.dir/main.cpp.obj CMakeFiles/Reisende.dir/Librerie.cpp.obj CMakeFiles/Reisende.dir/Game.cpp.obj CMakeFiles/Reisende.dir/Arena.cpp.obj CMakeFiles/Reisende.dir/Token.cpp.obj | C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a C$:/SFML/lib/libsfml-network-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a C$:/SFML/lib/libsfml-system-s-d.a
+build Reisende.exe: CXX_EXECUTABLE_LINKER__Reisende_Debug CMakeFiles/Reisende.dir/main.cpp.obj CMakeFiles/Reisende.dir/Librerie.cpp.obj CMakeFiles/Reisende.dir/Game.cpp.obj CMakeFiles/Reisende.dir/Arena.cpp.obj CMakeFiles/Reisende.dir/Token.cpp.obj CMakeFiles/Reisende.dir/TurnSystem.cpp.obj | libcore.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a C$:/SFML/lib/libsfml-network-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a C$:/SFML/lib/libsfml-system-s-d.a || libcore.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/SFML/lib/libsfml-system-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-audio-s-d.a  C:/SFML/lib/libsfml-network-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  -lgdi32  -lOpenGL32  C:/SFML/lib/libfreetype.a  C:/SFML/lib/libopenal32.a  C:/SFML/lib/libvorbisfile.a  C:/SFML/lib/libvorbisenc.a  C:/SFML/lib/libvorbis.a  C:/SFML/lib/libogg.a  C:/SFML/lib/libFLAC.a  C:/SFML/lib/libsfml-system-s-d.a  -lwinmm  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libcore.a  C:/SFML/lib/libsfml-system-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-audio-s-d.a  C:/SFML/lib/libsfml-network-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  -lgdi32  -lOpenGL32  C:/SFML/lib/libfreetype.a  C:/SFML/lib/libopenal32.a  C:/SFML/lib/libvorbisfile.a  C:/SFML/lib/libvorbisenc.a  C:/SFML/lib/libvorbis.a  C:/SFML/lib/libogg.a  C:/SFML/lib/libFLAC.a  C:/SFML/lib/libsfml-system-s-d.a  -lwinmm  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Reisende.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_FILE = Reisende.exe
   TARGET_IMPLIB = libReisende.dll.a
   TARGET_PDB = Reisende.exe.dbg
+
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target core
+
+
+#############################################
+# Order-only phony target for core
+
+build cmake_object_order_depends_target_core: phony || CMakeFiles/core.dir
+
+build CMakeFiles/core.dir/Token.cpp.obj: CXX_COMPILER__core_Debug C$:/Users/franc/Desktop/Reisende/Token.cpp || cmake_object_order_depends_target_core
+  DEP_FILE = CMakeFiles\core.dir\Token.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\core.dir
+  OBJECT_FILE_DIR = CMakeFiles\core.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target core
+
+
+#############################################
+# Link the static library libcore.a
+
+build libcore.a: CXX_STATIC_LIBRARY_LINKER__core_Debug CMakeFiles/core.dir/Token.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles\core.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libcore.a
+  TARGET_PDB = core.a.dbg
 
 
 #############################################
@@ -130,10 +200,291 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/franc/Desktop/Reisende/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for install/local
+
+build test/CMakeFiles/install/local.util: CUSTOM_COMMAND test/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build test/install/local: phony test/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build test/CMakeFiles/install.util: CUSTOM_COMMAND test/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build test/install: phony test/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build test/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build test/edit_cache: phony test/CMakeFiles/edit_cache.util
+
+# =============================================================================
+# Object build statements for EXECUTABLE target runGameCharacterTests
+
+
+#############################################
+# Order-only phony target for runGameCharacterTests
+
+build cmake_object_order_depends_target_runGameCharacterTests: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
+
+build test/CMakeFiles/runGameCharacterTests.dir/runAllTests.cpp.obj: CXX_COMPILER__runGameCharacterTests_Debug C$:/Users/franc/Desktop/Reisende/test/runAllTests.cpp || cmake_object_order_depends_target_runGameCharacterTests
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = test\CMakeFiles\runGameCharacterTests.dir\runAllTests.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include -isystem C:/SFML/include
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir
+
+build test/CMakeFiles/runGameCharacterTests.dir/TokenTest.cpp.obj: CXX_COMPILER__runGameCharacterTests_Debug C$:/Users/franc/Desktop/Reisende/test/TokenTest.cpp || cmake_object_order_depends_target_runGameCharacterTests
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = test\CMakeFiles\runGameCharacterTests.dir\TokenTest.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include -isystem C:/SFML/include
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir
+
+build test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj: CXX_COMPILER__runGameCharacterTests_Debug C$:/Users/franc/Desktop/Reisende/test/TokenSuite.cpp || cmake_object_order_depends_target_runGameCharacterTests
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = test\CMakeFiles\runGameCharacterTests.dir\TokenSuite.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include -isystem C:/SFML/include
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target runGameCharacterTests
+
+
+#############################################
+# Link the executable test\runGameCharacterTests.exe
+
+build test/runGameCharacterTests.exe: CXX_EXECUTABLE_LINKER__runGameCharacterTests_Debug test/CMakeFiles/runGameCharacterTests.dir/runAllTests.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenTest.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj | C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a test/lib/googletest/libgtestd.a test/lib/googletest/libgtest_maind.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a test/lib/googletest/libgtestd.a || test/lib/googletest/libgtest_maind.a test/lib/googletest/libgtestd.a
+  FLAGS = -g
+  LINK_LIBRARIES = C:/SFML/lib/libsfml-system-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-audio-s-d.a  test/lib/googletest/libgtestd.a  test/lib/googletest/libgtest_maind.a  C:/SFML/lib/libsfml-window-s-d.a  -lgdi32  -lOpenGL32  C:/SFML/lib/libfreetype.a  C:/SFML/lib/libsfml-system-s-d.a  -lwinmm  C:/SFML/lib/libopenal32.a  C:/SFML/lib/libvorbisfile.a  C:/SFML/lib/libvorbisenc.a  C:/SFML/lib/libvorbis.a  C:/SFML/lib/libogg.a  C:/SFML/lib/libFLAC.a  test/lib/googletest/libgtestd.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test\runGameCharacterTests.exe
+  TARGET_IMPLIB = test\librunGameCharacterTests.dll.a
+  TARGET_PDB = runGameCharacterTests.exe.dbg
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build test/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\Users\franc\Desktop\Reisende -BC:\Users\franc\Desktop\Reisende\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build test/rebuild_cache: phony test/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build test/list_install_components: phony
+
+
+#############################################
+# Utility command for install/strip
+
+build test/CMakeFiles/install/strip.util: CUSTOM_COMMAND test/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build test/install/strip: phony test/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/franc/Desktop/Reisende/test/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for list_install_components
+
+build test/lib/googletest/list_install_components: phony
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Order-only phony target for gtest
+
+build cmake_object_order_depends_target_gtest: phony || test/lib/googletest/CMakeFiles/gtest.dir
+
+build test/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj: CXX_COMPILER__gtest_Debug C$:/Users/franc/Desktop/Reisende/test/lib/googletest/src/gtest-all.cc || cmake_object_order_depends_target_gtest
+  DEP_FILE = test\lib\googletest\CMakeFiles\gtest.dir\src\gtest-all.cc.obj.d
+  FLAGS = -g  -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest/include -IC:/Users/franc/Desktop/Reisende/test/lib/googletest
+  OBJECT_DIR = test\lib\googletest\CMakeFiles\gtest.dir
+  OBJECT_FILE_DIR = test\lib\googletest\CMakeFiles\gtest.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Link the static library test\lib\googletest\libgtestd.a
+
+build test/lib/googletest/libgtestd.a: CXX_STATIC_LIBRARY_LINKER__gtest_Debug test/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = test\lib\googletest\CMakeFiles\gtest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test\lib\googletest\libgtestd.a
+  TARGET_PDB = gtestd.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Order-only phony target for gtest_main
+
+build cmake_object_order_depends_target_gtest_main: phony || cmake_object_order_depends_target_gtest
+
+build test/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj: CXX_COMPILER__gtest_main_Debug C$:/Users/franc/Desktop/Reisende/test/lib/googletest/src/gtest_main.cc || cmake_object_order_depends_target_gtest_main
+  DEP_FILE = test\lib\googletest\CMakeFiles\gtest_main.dir\src\gtest_main.cc.obj.d
+  FLAGS = -g  -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include
+  OBJECT_DIR = test\lib\googletest\CMakeFiles\gtest_main.dir
+  OBJECT_FILE_DIR = test\lib\googletest\CMakeFiles\gtest_main.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Link the static library test\lib\googletest\libgtest_maind.a
+
+build test/lib/googletest/libgtest_maind.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug test/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj || test/lib/googletest/libgtestd.a
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = test\lib\googletest\CMakeFiles\gtest_main.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test\lib\googletest\libgtest_maind.a
+  TARGET_PDB = gtest_maind.a.dbg
+
+
+#############################################
+# Utility command for install/local
+
+build test/lib/googletest/CMakeFiles/install/local.util: CUSTOM_COMMAND test/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test\lib\googletest && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build test/lib/googletest/install/local: phony test/lib/googletest/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build test/lib/googletest/CMakeFiles/install.util: CUSTOM_COMMAND test/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test\lib\googletest && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build test/lib/googletest/install: phony test/lib/googletest/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build test/lib/googletest/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test\lib\googletest && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build test/lib/googletest/edit_cache: phony test/lib/googletest/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build test/lib/googletest/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test\lib\googletest && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\Users\franc\Desktop\Reisende -BC:\Users\franc\Desktop\Reisende\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build test/lib/googletest/rebuild_cache: phony test/lib/googletest/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for install/strip
+
+build test/lib/googletest/CMakeFiles/install/strip.util: CUSTOM_COMMAND test/lib/googletest/all
+  COMMAND = cmd.exe /C "cd /D C:\Users\franc\Desktop\Reisende\cmake-build-debug\test\lib\googletest && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build test/lib/googletest/install/strip: phony test/lib/googletest/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
 
 build Reisende: phony Reisende.exe
+
+build core: phony libcore.a
+
+build gtest: phony test/lib/googletest/libgtestd.a
+
+build gtest_main: phony test/lib/googletest/libgtest_maind.a
+
+build libgtest_maind.a: phony test/lib/googletest/libgtest_maind.a
+
+build libgtestd.a: phony test/lib/googletest/libgtestd.a
+
+build runGameCharacterTests: phony test/runGameCharacterTests.exe
+
+build runGameCharacterTests.exe: phony test/runGameCharacterTests.exe
 
 # =============================================================================
 # Folder targets.
@@ -143,7 +494,21 @@ build Reisende: phony Reisende.exe
 #############################################
 # Folder: C:/Users/franc/Desktop/Reisende/cmake-build-debug
 
-build all: phony Reisende.exe
+build all: phony Reisende.exe libcore.a test/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/franc/Desktop/Reisende/cmake-build-debug/test
+
+build test/all: phony test/runGameCharacterTests.exe test/lib/googletest/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/franc/Desktop/Reisende/cmake-build-debug/test/lib/googletest
+
+build test/lib/googletest/all: phony test/lib/googletest/libgtestd.a test/lib/googletest/libgtest_maind.a
 
 # =============================================================================
 # Built-in targets
@@ -152,14 +517,14 @@ build all: phony Reisende.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/SFML/lib/cmake/SFML/SFMLConfig.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigDependencies.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigVersion.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-debug.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-release.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../test/CMakeLists.txt ../test/lib/googletest/CMakeLists.txt ../test/lib/googletest/cmake/gtest.pc.in ../test/lib/googletest/cmake/gtest_main.pc.in ../test/lib/googletest/cmake/internal_utils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPythonInterp.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/SFML/lib/cmake/SFML/SFMLConfig.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigDependencies.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigVersion.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-debug.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-release.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/SFML/lib/cmake/SFML/SFMLConfig.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigDependencies.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigVersion.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-debug.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-release.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../test/CMakeLists.txt ../test/lib/googletest/CMakeLists.txt ../test/lib/googletest/cmake/gtest.pc.in ../test/lib/googletest/cmake/gtest_main.pc.in ../test/lib/googletest/cmake/internal_utils.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPythonInterp.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake C$:/SFML/lib/cmake/SFML/SFMLConfig.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigDependencies.cmake C$:/SFML/lib/cmake/SFML/SFMLConfigVersion.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-debug.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets-release.cmake C$:/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
 
 
 #############################################

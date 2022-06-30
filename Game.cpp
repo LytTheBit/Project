@@ -5,8 +5,8 @@
 #include "Game.h"
 
 //--funzioni private--
-void Game::inizializedToken() {
-    this->prova= new Token(10,10,10);
+void Game::inizializedTurnSystem() {
+    this->prova= new TurnSystem();
 }
 void Game::inizializedWindow() {
     //crea la finestra
@@ -22,7 +22,7 @@ void Game::inizializedArena() {
 
 //--costruttore e distruttore--
 Game::Game() {
-    this->inizializedToken();
+    this->inizializedTurnSystem();
     this->inizializedWindow();
     this->inizializedArena();
 }
@@ -51,21 +51,22 @@ void Game::update() {
             this->window->close();
     }
     this->updateMouse();
-    this->updateViola();
-    this->updateToken();
+    this->updatePointer();
+    this->updateTurnSystem();
 }
-void Game::updateToken() {
-    //this->prova->updateMovement();
-    this->prova->update(this->mousePos);
+void Game::updateTurnSystem() {
+    this->prova->Update(this->mousePos);
 }
 void Game::updateMouse() {//Aggiorno la variabile contenente la posizione del mause
     this->mousePos = sf::Mouse::getPosition(*this->window);
 }
-void Game::updateViola() {
+void Game::updatePointer() {
     this->arena->update(this->mousePos);//passo la variabile contenente la posizione del mause al oggetto arena
 }
+
+
 void Game::renderToken() {
-    this->prova->render(*this->window);
+    this->prova->Render(*this->window);
 }
 void Game::renderArena() {
     this->arena->render(*this->window);
