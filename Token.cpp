@@ -11,14 +11,16 @@ void Token::inizializedSprite(const sf::Image& image) {
 
     this->sprite.setTextureRect(sf::IntRect(0,0,32,64));
     this->sprite.setScale(3.f,3.f);
-    this->sprite.setPosition(startingPointX, startingPointY-96);
+    this->sprite.setPosition(startingPointX+PosX*96, (startingPointY-96)+PosY*96);
 }
 
 //Costruttore
-Token::Token(const sf::Image& image, int InputHp, int InputAtk, int InputDef) {
+Token::Token(const sf::Image& image, int InputHp, int InputAtk, int InputDef, int X, int Y) {
     Hp=InputHp; //punti vita inseriti alla creazione della pedina
     Atk=InputAtk; //attacco ...
     Def=InputDef; //difesa ...
+    PosX=X; //posizione sulle X ...
+    PosY=Y; //posizione sulle Y ...
 
     this->inizializedSprite(image);
 }
@@ -42,6 +44,12 @@ int Token::GetAtk() {
 }
 int Token::GetDef() {
     return Def;
+}
+int Token::GetPosX() {
+    return PosX;
+}
+int Token::GetPosY() {
+    return PosY;
 }
 
 
@@ -78,6 +86,8 @@ void Token::updateMovement(sf::Vector2i& mousePos) {
 void Token::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
+
+
 
 
 

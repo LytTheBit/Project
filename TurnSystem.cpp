@@ -17,9 +17,9 @@ TurnSystem::~TurnSystem() {
 void TurnSystem::InizializedToken() {
     sf::Image image;
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Soldier.png");
-    this->soldier= new Token(image,10,10,5);
+    this->soldier= new Token(image,10,10,5,1,1);
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Dimon.png");
-    this->demon= new Token(image,6,6,6);
+    this->demon= new Token(image,6,6,6,3,3);
 }
 
 
@@ -28,19 +28,19 @@ void TurnSystem::Update(sf::Vector2i &mousePos) {
     this->soldier->update(pos);
 
     /*
-    if (this->phase = PHASE::pawnSelection){
+    if (this->phase == PHASE::pawnSelection){
         this->WhoMoves(Pos);
     }
-    else if (this->phase = PHASE::positionSelection){
+    else if (this->phase == PHASE::positionSelection){
         //code
     }
-    else if(this->phase = PHASE::motionAnimation){
+    else if(this->phase == PHASE::motionAnimation){
         //code
     }
-    else if (this->phase = PHASE::targetSelection){
+    else if (this->phase == PHASE::targetSelection){
         //code
     }
-    else if(this->phase = PHASE::attackAnimation){
+    else if(this->phase == PHASE::attackAnimation){
         //code
     }
      */

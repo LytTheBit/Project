@@ -12,11 +12,15 @@ int main()
     game.run();
     cout << "Link end! \n"; //Controllo lo spegnimento
 
-    SquareGrid grid = make_diagram4();
+
+    //Test di A*
+    //deve essere diviso e spostato
+    //nel programma finale non avrò più bisogno del grafico
+    SquareGrid grid = MakeDiagram();
     GridLocation start{2, 5}, goal{2, 1};
     std::unordered_map<GridLocation, GridLocation> came_from;
     std::unordered_map<GridLocation, double> cost_so_far;
-    add_rect(grid, 2, 2, 3, 3);//<-qui va bene?
+    add_rect(grid, 2, 2, 3, 3);//aggiungo un ipotetico pedone
     a_star_search(grid, start, goal, came_from, cost_so_far);
     draw_grid(grid, nullptr, &came_from, nullptr, &start, &goal);
     std::cout << '\n';

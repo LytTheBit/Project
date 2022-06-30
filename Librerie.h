@@ -14,7 +14,7 @@
 
 //Per iniziare le posizioni sono traslate per via dello sfondo
 #define startingPointX 96
-#define startingPointY 216
+#define startingPointY 192
 //Costante temporanea per il grafico di A*
 //#define field_width 3 //crea una costante per la quale alcuni simboli vengono stampati 3 volte
 
