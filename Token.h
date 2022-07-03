@@ -11,22 +11,24 @@ class Token{
 private:
     sf::Texture textureSheet;
 
-    sf::Sprite sprite;
-
     //STATISTIC
     int Hp; //vita della pedina
     int Atk; //attacco della pedina
     int Def; //difesa della pedina
+    int Speed; //quanti quadretti può percorrere
     int PosX; //vita della pedina
     int PosY; //attacco della pedina
+    int Owner; //è un nemico? o un amico? 0=neutro, 1=amico, 2=nemico
 
     //INIT
     void inizializedSprite(const sf::Image& image);
 
 
 public:
+    sf::Sprite sprite;
+
     //COSTRUTTORE
-    Token(const sf::Image& image, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int X=0, int Y=0);
+    Token(const sf::Image& image, int owner, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int ImputSpeed = 5, int X=0, int Y=0);
     //DISTRUTTORE
     virtual ~Token();
 
@@ -37,8 +39,12 @@ public:
     int GetHp();
     int GetAtk();
     int GetDef();
+    int GetSpeed();
     int GetPosX();
     int GetPosY();
+    int GetOwner();
+
+    //TODO aggiungere i setter
 
     //FUNZIONI PER IL MOVIMENTO
     void update(sf::Vector2i& mousePos);

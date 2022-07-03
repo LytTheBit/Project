@@ -11,16 +11,18 @@ void Token::inizializedSprite(const sf::Image& image) {
 
     this->sprite.setTextureRect(sf::IntRect(0,0,32,64));
     this->sprite.setScale(3.f,3.f);
-    this->sprite.setPosition(startingPointX+PosX*96, (startingPointY-96)+PosY*96);
+    this->sprite.setPosition(startingPointX+PosX*96, (startingPointY)+PosY*96);
 }
 
 //Costruttore
-Token::Token(const sf::Image& image, int InputHp, int InputAtk, int InputDef, int X, int Y) {
+Token::Token(const sf::Image& image, int owner, int InputHp, int InputAtk, int InputDef, int ImputSpeed, int X, int Y) {
     Hp=InputHp; //punti vita inseriti alla creazione della pedina
     Atk=InputAtk; //attacco ...
     Def=InputDef; //difesa ...
+    Speed=ImputSpeed; //Quadretti percorribili ...
     PosX=X; //posizione sulle X ...
     PosY=Y; //posizione sulle Y ...
+    Owner=owner; //è un nemico o un amico
 
     this->inizializedSprite(image);
 }
@@ -45,11 +47,17 @@ int Token::GetAtk() {
 int Token::GetDef() {
     return Def;
 }
+int Token::GetSpeed() {
+    return Speed;
+}
 int Token::GetPosX() {
     return PosX;
 }
 int Token::GetPosY() {
     return PosY;
+}
+int Token::GetOwner() {
+    return Owner;
 }
 
 
@@ -59,33 +67,36 @@ void Token::update(sf::Vector2i& mousePos){//aggiorna il token
     sf::Vector2i Pos=mousePos;
     this->updateMovement(Pos);
 }
-void Token::updateMovement(sf::Vector2i& mousePos) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-        for(int i=0; i<=6; i++){
-            for(int j=0; j<=5; j++) {
-                if (mousePos.x > (startingPointX+(i * 32 * 3.f)) && mousePos.y > (startingPointY+(j * 32 * 3)) &&
-                    mousePos.x < (startingPointX+((i + 1) * 32 * 3)) && mousePos.y < (startingPointY+((j + 1) * 32 * 3))) {
-                    if((startingPointX+(i * 32 * 3.f))>this->sprite.getPosition().x){
-                        this->sprite.move(1.f,0.f);
-                    }
-                    else if((startingPointX+(i * 32 * 3.f))<this->sprite.getPosition().x){
-                        this->sprite.move(-1.f,0.f);
-                    }
 
-                    if((startingPointY+(j * 32 * 3))-96>this->sprite.getPosition().y){
-                        this->sprite.move(0.f,1.f);
-                    }
-                    else if((startingPointY+(j * 32 * 3))-96<this->sprite.getPosition().y){
-                        this->sprite.move(0.f,-1.f);
-                    }
-                }
-            }
-        }
-    }//insegue la freccia
+
+void Token::updateMovement(sf::Vector2i& mousePos) {
+    //sposto il Token vero il "bersaglio"
+    if((startingPointX+(mousePos.x * 32 * 3))>this->sprite.getPosition().x){
+        this->sprite.move(1.f,0.f);
+    }
+    else if((startingPointX+(mousePos.x * 32 * 3.f))<this->sprite.getPosition().x){
+        this->sprite.move(-1.f,0.f);
+    }
+    if((startingPointY+(mousePos.y * 32 * 3))>this->sprite.getPosition().y){
+        this->sprite.move(0.f,1.f);
+    }
+    else if((startingPointY+(mousePos.y * 32 * 3))<this->sprite.getPosition().y){
+        this->sprite.move(0.f,-1.f);
+    }
+
+    //il Token è arrivato a destinazione
+    if((startingPointX+(mousePos.x * 32 * 3))==this->sprite.getPosition().x)
+        PosX=mousePos.x;
+    if((startingPointY+(mousePos.y * 32 * 3))==this->sprite.getPosition().y)
+        PosY=mousePos.y;
 }
+
 void Token::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
+
+
+
 
 
 

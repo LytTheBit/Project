@@ -8,7 +8,6 @@
 #include "Librerie.h"
 #include "Token.h"
 
-
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
 
@@ -18,12 +17,16 @@ private:
 
     short turnOf = TURN_OF::player;
     short phase = PHASE::pawnSelection;
+    sf::Vector2i destinazione;
 
     //TOKEN
     Token* soldier;
     Token* demon;
-
-
+    Token* octopus;
+    Token* reptilian;
+    Token* column[4];
+    Token* A;
+    Token* B;
 
     void InizializedToken();
 
@@ -37,14 +40,16 @@ public:
     void Update(sf::Vector2i& mousePos);
 
     //FASI
-    void WhoMoves(sf::Vector2i &mousePos);
-    void WhereItMove();
+    void WhoMoves(sf::Vector2i &pos);
+    void WhereItMove(sf::Vector2i &mousePos);
     void MoveAnimation();
     void WhoAttacks();
     void AttackAnimation();
 
-    //Controllo pedine
-    Token ThereIsATokenThere(sf::Vector2i &mousePos);
+    void MapMaker();
+
+    //controllo del mouse
+    sf::Vector2i MouseOnTheBoard(sf::Vector2i &mousePos);
 
     //Render pedine
     void Render(sf::RenderTarget& target);

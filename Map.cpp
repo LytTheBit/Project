@@ -102,7 +102,7 @@ void add_rect(SquareGrid& grid, int x1, int y1, int x2, int y2) {
 //va modificato affinche aggiunga un muro per ogni pezzo che non sia quello mosso
 SquareGrid MakeDiagram() {
     SquareGrid grid(7, 6);
-    add_rect(grid, 1, 1, 2, 2);
+    //add_rect(grid, 1, 1, 2, 2);
     typedef GridLocation L;
     return grid;
 }
@@ -147,4 +147,26 @@ void draw_grid(const Graph& graph,
         std::cout << '\n';
     }
     std::cout << std::string(field_width * graph.width, '~') << '\n'; //stampa la parte bassa del grafico ~~~
+}
+
+// Funzione per calcolare la distanza da un punto A ad un punto B
+template<class Graph>
+int DistanceCalculation(const Graph& graph,
+               std::vector<GridLocation>* path=nullptr,
+               GridLocation* start=nullptr,
+               GridLocation* goal=nullptr) {
+int distance=0;
+    for (int y = 0; y != graph.height; ++y) {
+        for (int x = 0; x != graph.width; ++x) {
+            GridLocation id{x, y};
+            if (find(path->begin(), path->end(), id) != path->end()) {
+                if(find(path->begin(), path->end(), id) == path->begin()){
+                    //non conto la casella iniziale
+                }
+                else
+                    distance++;
+            }
+        }
+    }
+    return distance;
 }
