@@ -172,6 +172,20 @@ build CMakeFiles/core.dir/Token.cpp.obj: CXX_COMPILER__core_Debug C$:/Users/fran
   OBJECT_DIR = CMakeFiles\core.dir
   OBJECT_FILE_DIR = CMakeFiles\core.dir
 
+build CMakeFiles/core.dir/Librerie.cpp.obj: CXX_COMPILER__core_Debug C$:/Users/franc/Desktop/Reisende/Librerie.cpp || cmake_object_order_depends_target_core
+  DEP_FILE = CMakeFiles\core.dir\Librerie.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\core.dir
+  OBJECT_FILE_DIR = CMakeFiles\core.dir
+
+build CMakeFiles/core.dir/TurnSystem.cpp.obj: CXX_COMPILER__core_Debug C$:/Users/franc/Desktop/Reisende/TurnSystem.cpp || cmake_object_order_depends_target_core
+  DEP_FILE = CMakeFiles\core.dir\TurnSystem.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\core.dir
+  OBJECT_FILE_DIR = CMakeFiles\core.dir
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target core
@@ -180,7 +194,7 @@ build CMakeFiles/core.dir/Token.cpp.obj: CXX_COMPILER__core_Debug C$:/Users/fran
 #############################################
 # Link the static library libcore.a
 
-build libcore.a: CXX_STATIC_LIBRARY_LINKER__core_Debug CMakeFiles/core.dir/Token.cpp.obj
+build libcore.a: CXX_STATIC_LIBRARY_LINKER__core_Debug CMakeFiles/core.dir/Token.cpp.obj CMakeFiles/core.dir/Librerie.cpp.obj CMakeFiles/core.dir/TurnSystem.cpp.obj
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles\core.dir
   POST_BUILD = cd .
@@ -285,6 +299,22 @@ build test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj: CXX_COMPILER
   OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
   OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir
 
+build test/CMakeFiles/runGameCharacterTests.dir/TurnSystemSuite.cpp.obj: CXX_COMPILER__runGameCharacterTests_Debug C$:/Users/franc/Desktop/Reisende/test/TurnSystemSuite.cpp || cmake_object_order_depends_target_runGameCharacterTests
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = test\CMakeFiles\runGameCharacterTests.dir\TurnSystemSuite.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include -isystem C:/SFML/include
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir
+
+build test/CMakeFiles/runGameCharacterTests.dir/__/Librerie.cpp.obj: CXX_COMPILER__runGameCharacterTests_Debug C$:/Users/franc/Desktop/Reisende/Librerie.cpp || cmake_object_order_depends_target_runGameCharacterTests
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = test\CMakeFiles\runGameCharacterTests.dir\__\Librerie.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/franc/Desktop/Reisende/test/lib/googletest -isystem C:/Users/franc/Desktop/Reisende/test/lib/googletest/include -isystem C:/SFML/include
+  OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\runGameCharacterTests.dir\__
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target runGameCharacterTests
@@ -293,7 +323,7 @@ build test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj: CXX_COMPILER
 #############################################
 # Link the executable test\runGameCharacterTests.exe
 
-build test/runGameCharacterTests.exe: CXX_EXECUTABLE_LINKER__runGameCharacterTests_Debug test/CMakeFiles/runGameCharacterTests.dir/runAllTests.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenTest.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj | C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a test/lib/googletest/libgtestd.a test/lib/googletest/libgtest_maind.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a test/lib/googletest/libgtestd.a || test/lib/googletest/libgtest_maind.a test/lib/googletest/libgtestd.a
+build test/runGameCharacterTests.exe: CXX_EXECUTABLE_LINKER__runGameCharacterTests_Debug test/CMakeFiles/runGameCharacterTests.dir/runAllTests.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenTest.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TokenSuite.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/TurnSystemSuite.cpp.obj test/CMakeFiles/runGameCharacterTests.dir/__/Librerie.cpp.obj | C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a test/lib/googletest/libgtestd.a test/lib/googletest/libgtest_maind.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a test/lib/googletest/libgtestd.a || test/lib/googletest/libgtest_maind.a test/lib/googletest/libgtestd.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML/lib/libsfml-system-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-audio-s-d.a  test/lib/googletest/libgtestd.a  test/lib/googletest/libgtest_maind.a  C:/SFML/lib/libsfml-window-s-d.a  -lgdi32  -lOpenGL32  C:/SFML/lib/libfreetype.a  C:/SFML/lib/libsfml-system-s-d.a  -lwinmm  C:/SFML/lib/libopenal32.a  C:/SFML/lib/libvorbisfile.a  C:/SFML/lib/libvorbisenc.a  C:/SFML/lib/libvorbis.a  C:/SFML/lib/libogg.a  C:/SFML/lib/libFLAC.a  test/lib/googletest/libgtestd.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = test\CMakeFiles\runGameCharacterTests.dir

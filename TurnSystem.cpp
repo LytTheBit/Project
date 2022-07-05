@@ -17,21 +17,24 @@ TurnSystem::~TurnSystem() {
 
 void TurnSystem::InizializedToken() {
     sf::Image image;
+    //pedine giocanti
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Soldier.png");
-    this->soldier= new Token(image,1,10,10,5,5, 0,0);
+    this->token[0]= new Token("soldato",image,1,10,10,5,5, 1,0);
+    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Mage.png");
+    this->token[1]= new Token("mago",image,1,10,15,0,4, 0,1);
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Demon.png");
-    this->demon= new Token(image,2,6,6,6,3,5,5);
+    this->token[2]= new Token("demone",image,2,6,6,6,3,5,5);
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Octopus.png");
-    this->octopus= new Token(image,2,8,4,6,3,3,4);
+    this->token[3]= new Token("polipo(?)",image,2,8,4,6,3,3,4);
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Reptilian.png");
-    this->reptilian= new Token(image,2,5,8,5,3,4,3);
+    this->token[4]= new Token("lucertoloide",image,2,5,8,5,3,4,3);
 
     //Colonne
     image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Column.png");
-    this->column[0] = new Token(image,0,20,0,0,0,1,1);
-    this->column[1] = new Token(image,0,20,0,0,0,1,4);
-    this->column[2] = new Token(image,0,20,0,0,0,5,1);
-    this->column[3] = new Token(image,0,20,0,0,0,5,4);
+    this->token[5] = new Token("colonna",image,0,20,0,0,0,1,1);
+    this->token[6] = new Token("colonna",image,0,20,0,0,0,1,4);
+    this->token[7] = new Token("colonna",image,0,20,0,0,0,5,1);
+    this->token[8] = new Token("colonna",image,0,20,0,0,0,5,4);
 }
 
 
@@ -65,13 +68,16 @@ void TurnSystem::Update(sf::Vector2i &mousePos) {
 //Chi vuoi muovere?
 void TurnSystem::WhoMoves(sf::Vector2i &pos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {//se clicco il mouse
-        if(soldier->sprite.getGlobalBounds().contains(pos.x,pos.y)){
-            A = soldier;
-            std::cout << "Selezionato: soldato \n";
-            phase=PHASE::positionSelection;
-        }
-        else if (demon->sprite.getGlobalBounds().contains(pos.x,pos.y)){
-            std::cout << "La pedina e' nemica, selezionane un altra \n";
+        for(int i=0;i<9;i++){
+            if(token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()==1){
+                A = token[i];
+                std::cout << "Selezionato:" << A->GetName() <<"\n";
+                i=9;
+                phase=PHASE::positionSelection;
+            }
+            else if (token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()!=1){
+                std::cout << "non è una tua pedina, selezionane un altra \n";
+            }
         }
     }
 }
@@ -79,55 +85,65 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
 //Dove lo vuoi muovere?
 void TurnSystem::WhereItMove(sf::Vector2i &mousePos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {//se clicco il mouse
-        destinazione=MouseOnTheBoard(mousePos);
-        std::cout << "mouse in posizione: \n"<<destinazione.x<<" e "<<destinazione.y << "\n";
+        destinazione[0]=MouseOnTheBoard(mousePos);
 
         //Test di A*
-
         SquareGrid grid = MakeDiagram();
 
-        //pezzi neutri
-        for(int i=0;i<4;i++){
-            B=this->column[i];
-            add_rect(grid, B->GetPosX(), B->GetPosY(),B->GetPosX()+1, B->GetPosY()+1);
+        //aggiorna i pezzi sulla scacchiera
+        for(int i=0;i<9;i++){//un token può passare dalla casella di un alleato
+            if(token[i]->GetOwner()!=1) //TODO l'1 può essere cambiato in una variabile per rendere i personaggi della giocatore ostacoli per la CPU
+                add_rect(grid, token[i]->GetPosX(), token[i]->GetPosY(),token[i]->GetPosX()+1, token[i]->GetPosY()+1);
         }
 
-        //pezzi nemici
-        if(A->GetOwner()==1){
-            add_rect(grid, demon->GetPosX(), demon->GetPosY(),demon->GetPosX()+1, demon->GetPosY()+1);
-            add_rect(grid, octopus->GetPosX(), octopus->GetPosY(),octopus->GetPosX()+1, octopus->GetPosY()+1);
-            add_rect(grid, reptilian->GetPosX(), reptilian->GetPosY(),reptilian->GetPosX()+1, reptilian->GetPosY()+1);
-        }
-
-        //pezzi alleati
-        if(A->GetOwner()==2){
-            add_rect(grid, soldier->GetPosX(), soldier->GetPosY(),soldier->GetPosX()+1, soldier->GetPosY()+1);
-        }
-
-        GridLocation start{A->GetPosX(), A->GetPosY()}, goal{destinazione.x, destinazione.y};
+        GridLocation start{A->GetPosX(), A->GetPosY()}, goal{destinazione[0].x, destinazione[0].y};
 
         std::unordered_map<GridLocation, GridLocation> came_from;
         std::unordered_map<GridLocation, double> cost_so_far;
         a_star_search(grid, start, goal, came_from, cost_so_far);
         std::vector<GridLocation> path = reconstruct_path(start, goal, came_from);
 
-        int distanza=DistanceCalculation(grid, &path, &start, &goal);
 
-        if(distanza <= A->GetSpeed()){
+        //Grafici (da eliminare)
+        draw_grid(grid, nullptr, &came_from, nullptr, &start, &goal);
+        std::cout << '\n';
+        draw_grid(grid, nullptr, nullptr, &path, &start, &goal);
+        std::cout << '\n';
+        draw_grid(grid, &cost_so_far, nullptr, nullptr, &start, &goal);
+
+        //calcolo distanza percorsa
+        distanza=DistanceCalculation(grid, &path, &start, &goal);
+
+        if((PositionCheck()==true) && (distanza <= A->GetSpeed()))
+        {
+
+            //elenco caselle percorse
+            for(int i=0;i<=distanza;i++){
+                std::cout<< "il percorso e' " << path[i] <<"\n";
+                destinazione[i].x=path[i].x;
+                destinazione[i].y=path[i].y;
+            }
+
             phase=PHASE::motionAnimation;
-            std::cout << '\n' << "perfetto";
+            std::cout << '\n' << "perfetto \n ";
         }
         else{
-            std::cout << '\n' << "il personaggio non puo' muoversi per cosi tanto: " << distanza << " , \n cambia destinazione";
+            std::cout << '\n' << "il personaggio non puo' muoversi li, cambia destinazione \n";
         }
     }
 }
 
 //Si muove
 void TurnSystem::MoveAnimation() {
-    A->update(destinazione);
-    if(A->GetPosX()==destinazione.x && A->GetPosY()==destinazione.y)
+    //elenco caselle percorse
+
+    A->update(destinazione[j]);
+    if(A->GetPosX()==destinazione[j].x && A->GetPosY()==destinazione[j].y)
+        j++;
+    if(A->GetPosX()==destinazione[distanza].x && A->GetPosY()==destinazione[distanza].y){
+        j=0;
         phase = PHASE::pawnSelection;
+    }
 }
 
 //TODO Chi vuoi attaccare?
@@ -138,6 +154,25 @@ void TurnSystem::WhoAttacks() {
 //TODO Animazione attacco
 void TurnSystem::AttackAnimation() {
 
+}
+
+
+bool TurnSystem::PositionCheck() {
+    for(int i=0;i<9;i++){
+        /*if( (token[i]->GetPosX()==A->GetPosX()) && (token[i]->GetPosY()==A->GetPosY())){
+            //collisione
+        }
+        else
+        {
+            if(token[i]->GetPosX()==destinazione[0].x && token[i]->GetPosY()==destinazione[0].y){
+                return false;
+            }
+        }*/
+        if( (token[i]->GetPosX()!=A->GetPosX()) || (token[i]->GetPosY()!=A->GetPosY()))
+            if(token[i]->GetPosX()==destinazione[0].x && token[i]->GetPosY()==destinazione[0].y)
+                return false;
+    }
+    return true;
 }
 
 
@@ -162,10 +197,12 @@ sf::Vector2i TurnSystem::MouseOnTheBoard(sf::Vector2i &mousePos) {
 
 //render pedine
 void TurnSystem::Render(sf::RenderTarget& target) {
-    this->soldier->render(target);
-    this->demon->render(target);
-    this->octopus->render(target);
-    this->reptilian->render(target);
-    for(int i=0;i<4;i++)
-        this->column[i]->render(target);
+    for(int i=0;i<9;i++)
+        this->token[i]->render(target);
 }
+
+
+
+
+
+

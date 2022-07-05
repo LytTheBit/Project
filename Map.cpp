@@ -161,10 +161,11 @@ int distance=0;
             GridLocation id{x, y};
             if (find(path->begin(), path->end(), id) != path->end()) {
                 if(find(path->begin(), path->end(), id) == path->begin()){
-                    //non conto la casella iniziale
                 }
-                else
+                else{
                     distance++;
+                }
+                //std::cout<<"passa da "<< id.x << "-" << id.y <<"\n";
             }
         }
     }

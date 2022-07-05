@@ -11,7 +11,9 @@ class Token{
 private:
     sf::Texture textureSheet;
 
+
     //STATISTIC
+    std::string name; //nome della pedina
     int Hp; //vita della pedina
     int Atk; //attacco della pedina
     int Def; //difesa della pedina
@@ -28,7 +30,7 @@ public:
     sf::Sprite sprite;
 
     //COSTRUTTORE
-    Token(const sf::Image& image, int owner, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int ImputSpeed = 5, int X=0, int Y=0);
+    Token(std::string inputName, const sf::Image& image, int owner = 0, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int ImputSpeed = 5, int X=0, int Y=0);
     //DISTRUTTORE
     virtual ~Token();
 
@@ -36,6 +38,7 @@ public:
     void attached(int AttaccoSubito); //metodo per testare lo unit testing
 
     //Get statistiche
+    std::string GetName();
     int GetHp();
     int GetAtk();
     int GetDef();

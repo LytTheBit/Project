@@ -17,16 +17,13 @@ private:
 
     short turnOf = TURN_OF::player;
     short phase = PHASE::pawnSelection;
-    sf::Vector2i destinazione;
+    sf::Vector2i destinazione[10]; //ipotizzo che nessuna pedina potrà mai muoversi cosi tanto
+    int distanza;
+    int j=0;
 
     //TOKEN
-    Token* soldier;
-    Token* demon;
-    Token* octopus;
-    Token* reptilian;
-    Token* column[4];
+    Token* token[9];
     Token* A;
-    Token* B;
 
     void InizializedToken();
 
@@ -46,7 +43,8 @@ public:
     void WhoAttacks();
     void AttackAnimation();
 
-    void MapMaker();
+    //controlli delle pedine
+    bool PositionCheck();
 
     //controllo del mouse
     sf::Vector2i MouseOnTheBoard(sf::Vector2i &mousePos);

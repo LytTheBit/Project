@@ -9,13 +9,14 @@ void Token::inizializedSprite(const sf::Image& image) {
 
     this->sprite.setTexture(this->textureSheet);
 
-    this->sprite.setTextureRect(sf::IntRect(0,0,32,64));
+    this->sprite.setTextureRect(sf::IntRect(0,0,32,32));
     this->sprite.setScale(3.f,3.f);
     this->sprite.setPosition(startingPointX+PosX*96, (startingPointY)+PosY*96);
 }
 
 //Costruttore
-Token::Token(const sf::Image& image, int owner, int InputHp, int InputAtk, int InputDef, int ImputSpeed, int X, int Y) {
+Token::Token(std::string inputName, const sf::Image& image, int owner, int InputHp, int InputAtk, int InputDef, int ImputSpeed, int X, int Y) {
+    name=inputName; //nome della pedina
     Hp=InputHp; //punti vita inseriti alla creazione della pedina
     Atk=InputAtk; //attacco ...
     Def=InputDef; //difesa ...
@@ -37,7 +38,10 @@ void Token::attached(int AttaccoSubito) {
         Hp=Hp-(AttaccoSubito-Def);
 }//funzione di prova di un possibile attacco subito
 
-//Getter delle statistiche
+//Getter delle pedine
+std::string Token::GetName() {
+    return name;
+}
 int Token::GetHp() {
     return Hp;
 }
@@ -94,6 +98,8 @@ void Token::updateMovement(sf::Vector2i& mousePos) {
 void Token::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
+
+
 
 
 

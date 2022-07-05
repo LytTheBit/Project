@@ -28,14 +28,15 @@ struct PriorityQueue {
 template<typename Location>
 std::vector<Location> reconstruct_path(
         Location start, Location goal,
-        std::unordered_map<Location, Location> came_from
-) {
+        std::unordered_map<Location, Location> came_from) {
     std::vector<Location> path;
     Location current = goal;
     while (current != start) {  // fallisce se non trova un percorso
+        //std::cout<< "cos'e' current " << current <<"\n";//percorso al contrario
         path.push_back(current);
         current = came_from[current];
     }
+    //std::cout<< "cos'e' current " << current <<"\n";//percorso al contrario
     path.push_back(start); // opzionale
     std::reverse(path.begin(), path.end());
     return path;
