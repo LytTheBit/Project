@@ -18,6 +18,7 @@ private:
     int Atk; //attacco della pedina
     int Def; //difesa della pedina
     int Speed; //quanti quadretti può percorrere
+    int range;
     int PosX; //vita della pedina
     int PosY; //attacco della pedina
     int Owner; //è un nemico? o un amico? 0=neutro, 1=amico, 2=nemico
@@ -30,9 +31,9 @@ public:
     sf::Sprite sprite;
 
     //COSTRUTTORE
-    Token(std::string inputName, const sf::Image& image, int owner = 0, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int ImputSpeed = 5, int X=0, int Y=0);
+    Token(std::string inputName, const sf::Image& image, int owner = 0, int InputHp = 10, int InputAtk = 10, int InputDef = 10, int ImputSpeed = 5, int InputRange=1, int X=0, int Y=0);
     //DISTRUTTORE
-    virtual ~Token();
+    ~Token();
 
     //COMBATTIMENTO
     void attached(int AttaccoSubito); //metodo per testare lo unit testing
@@ -43,6 +44,7 @@ public:
     int GetAtk();
     int GetDef();
     int GetSpeed();
+    int GetRange();
     int GetPosX();
     int GetPosY();
     int GetOwner();

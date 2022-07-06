@@ -15,12 +15,13 @@ void Token::inizializedSprite(const sf::Image& image) {
 }
 
 //Costruttore
-Token::Token(std::string inputName, const sf::Image& image, int owner, int InputHp, int InputAtk, int InputDef, int ImputSpeed, int X, int Y) {
+Token::Token(std::string inputName, const sf::Image& image, int owner, int InputHp, int InputAtk, int InputDef, int ImputSpeed, int InputRange, int X, int Y) {
     name=inputName; //nome della pedina
     Hp=InputHp; //punti vita inseriti alla creazione della pedina
     Atk=InputAtk; //attacco ...
     Def=InputDef; //difesa ...
     Speed=ImputSpeed; //Quadretti percorribili ...
+    range=InputRange; //raggio d'attacco
     PosX=X; //posizione sulle X ...
     PosY=Y; //posizione sulle Y ...
     Owner=owner; //è un nemico o un amico
@@ -54,6 +55,9 @@ int Token::GetDef() {
 int Token::GetSpeed() {
     return Speed;
 }
+int Token::GetRange() {
+    return range;
+}
 int Token::GetPosX() {
     return PosX;
 }
@@ -63,6 +67,7 @@ int Token::GetPosY() {
 int Token::GetOwner() {
     return Owner;
 }
+
 
 
 
@@ -98,6 +103,7 @@ void Token::updateMovement(sf::Vector2i& mousePos) {
 void Token::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
+
 
 
 

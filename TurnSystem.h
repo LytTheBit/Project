@@ -20,10 +20,13 @@ private:
     sf::Vector2i destinazione[10]; //ipotizzo che nessuna pedina potrà mai muoversi cosi tanto
     int distanza;
     int j=0;
+    bool mouseHeld=false;
+    int p=9;
 
     //TOKEN
     Token* token[9];
     Token* A;
+    Token* B;
 
     void InizializedToken();
 
@@ -40,11 +43,13 @@ public:
     void WhoMoves(sf::Vector2i &pos);
     void WhereItMove(sf::Vector2i &mousePos);
     void MoveAnimation();
-    void WhoAttacks();
+    void WhoAttacks(sf::Vector2i &pos);
     void AttackAnimation();
 
     //controlli delle pedine
     bool PositionCheck();
+    void DeathCheck();
+    void Death(int i);
 
     //controllo del mouse
     sf::Vector2i MouseOnTheBoard(sf::Vector2i &mousePos);
