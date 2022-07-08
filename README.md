@@ -31,11 +31,11 @@ I prossimi obbiettivi nella lista sono:
 
 - [x] aggiungere le statistiche ai pezzi
 
-- [ ] creare nuovi pezzi
+- [x] creare nuovi pezzi
 
-- [ ] implementare il sistema a turni (tramite una classe apposita)
+- [x] implementare il sistema a turni (tramite una classe apposita)
 
-- [ ] rendere funzionanti le varie fasi di un turno
+- [x] rendere funzionanti le varie fasi di un turno
 
 - [ ] creare una cpu funzionante
 
