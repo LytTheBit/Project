@@ -35,6 +35,8 @@ I prossimi obbiettivi nella lista sono:
 
 - [x] implementare il sistema a turni (tramite una classe apposita)
 
+- [x] aggiungere un sistema di pathfinding
+
 - [x] rendere funzionanti le varie fasi di un turno
 
 - [ ] creare una cpu funzionante
