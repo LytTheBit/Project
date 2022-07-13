@@ -30,11 +30,18 @@ std::vector<Location> reconstruct_path(
         Location start, Location goal,
         std::unordered_map<Location, Location> came_from) {
     std::vector<Location> path;
+    int control=0;
     Location current = goal;
     while (current != start) {  // fallisce se non trova un percorso
         //std::cout<< "cos'e' current " << current <<"\n";//percorso al contrario
         path.push_back(current);
         current = came_from[current];
+        control++;
+        if(control==10){  //se non trova il percorso
+            path[0].x=-1; //allora esce forzatamente
+            path[0].y=-1; //e ritorna un path simbolico che
+            return path;  //viene letto dal programma per capire cosa è successo
+        }
     }
     //std::cout<< "cos'e' current " << current <<"\n";//percorso al contrario
     path.push_back(start); // opzionale
