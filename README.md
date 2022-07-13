@@ -18,27 +18,31 @@ Per permetterli di cambiare armi e usare oggetti.
 ![Fire_emblem_object](https://user-images.githubusercontent.com/102967110/175331459-9ffdd0bd-ddf5-4249-8415-703a657b6686.png)
 
 Ecco un immagine di riferimento (chiedo scusa a tutti per la grafica, ma non sono un disegnatore)
+
 ![pixilart-drawing (1)](https://user-images.githubusercontent.com/102967110/175394747-f18c3a0f-7112-41a9-9f33-ee9eb40ffdec.png)
+<img width="291" alt="Cattura2" src="https://user-images.githubusercontent.com/102967110/175958411-a825a9ac-0fb2-49b7-b02b-f97cd78fd917.PNG">
 
 L'ambientazione e le immagini potrebbero cambiare
 
 
 I prossimi obbiettivi nella lista sono:
 
--implementare lo unit-testing (da aggiornare via via)
+- [x] implementare lo unit-testing (da aggiornare via via)
 
--aggiungere le statistiche ai pezzi
+- [x] aggiungere le statistiche ai pezzi
 
--creare nuovi pezzi
+- [x] creare nuovi pezzi
 
--implementare il sistema a turni (tramite una classe apposita)
+- [x] implementare il sistema a turni (tramite una classe apposita)
 
--rendere funzionanti le varie fasi di un turno
+- [x] aggiungere un sistema di pathfinding
 
--creare una cpu funzionante
+- [x] rendere funzionanti le varie fasi di un turno
 
--abbellire l'interfaccia generale
+- [ ] creare una cpu funzionante
 
--aggiungere il cambio visuale durante l'attacco
+- [ ] abbellire l'interfaccia generale
 
--implementare un menu
+- [ ] aggiungere il cambio visuale durante l'attacco
+
+- [ ] implementare un menu
