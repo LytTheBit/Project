@@ -14,7 +14,6 @@
 #include <string>
 
 
-
 //Per iniziare le posizioni sono traslate per via dello sfondo
 #define startingPointX 96
 #define startingPointY 192

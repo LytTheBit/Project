@@ -5,10 +5,8 @@
 #ifndef MAIN_CPP_GAME_H
 #define MAIN_CPP_GAME_H
 
-#include "Librerie.h"
-#include "Arena.h"
 #include "TurnSystem.h"
-#include "Token.h"
+#include "Arena.h"
 
 
 class Game {

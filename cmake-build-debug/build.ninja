@@ -92,17 +92,17 @@ build CMakeFiles/Reisende.dir/main.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Use
   OBJECT_DIR = CMakeFiles\Reisende.dir
   OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
 
-build CMakeFiles/Reisende.dir/Game.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/Game.cpp || cmake_object_order_depends_target_Reisende
+build CMakeFiles/Reisende.dir/Librerie.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/Librerie.cpp || cmake_object_order_depends_target_Reisende
   DEFINES = -DSFML_STATIC
-  DEP_FILE = CMakeFiles\Reisende.dir\Game.cpp.obj.d
+  DEP_FILE = CMakeFiles\Reisende.dir\Librerie.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -isystem C:/SFML/include
   OBJECT_DIR = CMakeFiles\Reisende.dir
   OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
 
-build CMakeFiles/Reisende.dir/Librerie.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/Librerie.cpp || cmake_object_order_depends_target_Reisende
+build CMakeFiles/Reisende.dir/Game.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/Game.cpp || cmake_object_order_depends_target_Reisende
   DEFINES = -DSFML_STATIC
-  DEP_FILE = CMakeFiles\Reisende.dir\Librerie.cpp.obj.d
+  DEP_FILE = CMakeFiles\Reisende.dir\Game.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -isystem C:/SFML/include
   OBJECT_DIR = CMakeFiles\Reisende.dir
@@ -140,6 +140,22 @@ build CMakeFiles/Reisende.dir/Graphics.cpp.obj: CXX_COMPILER__Reisende_Debug C$:
   OBJECT_DIR = CMakeFiles\Reisende.dir
   OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
 
+build CMakeFiles/Reisende.dir/AStar.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/AStar.cpp || cmake_object_order_depends_target_Reisende
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\Reisende.dir\AStar.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem C:/SFML/include
+  OBJECT_DIR = CMakeFiles\Reisende.dir
+  OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
+
+build CMakeFiles/Reisende.dir/Map.cpp.obj: CXX_COMPILER__Reisende_Debug C$:/Users/franc/Desktop/Reisende/Map.cpp || cmake_object_order_depends_target_Reisende
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\Reisende.dir\Map.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem C:/SFML/include
+  OBJECT_DIR = CMakeFiles\Reisende.dir
+  OBJECT_FILE_DIR = CMakeFiles\Reisende.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Reisende
@@ -148,7 +164,7 @@ build CMakeFiles/Reisende.dir/Graphics.cpp.obj: CXX_COMPILER__Reisende_Debug C$:
 #############################################
 # Link the executable Reisende.exe
 
-build Reisende.exe: CXX_EXECUTABLE_LINKER__Reisende_Debug CMakeFiles/Reisende.dir/main.cpp.obj CMakeFiles/Reisende.dir/Game.cpp.obj CMakeFiles/Reisende.dir/Librerie.cpp.obj CMakeFiles/Reisende.dir/Arena.cpp.obj CMakeFiles/Reisende.dir/Token.cpp.obj CMakeFiles/Reisende.dir/TurnSystem.cpp.obj CMakeFiles/Reisende.dir/Graphics.cpp.obj | libcore.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a C$:/SFML/lib/libsfml-network-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a C$:/SFML/lib/libsfml-system-s-d.a || libcore.a
+build Reisende.exe: CXX_EXECUTABLE_LINKER__Reisende_Debug CMakeFiles/Reisende.dir/main.cpp.obj CMakeFiles/Reisende.dir/Librerie.cpp.obj CMakeFiles/Reisende.dir/Game.cpp.obj CMakeFiles/Reisende.dir/Arena.cpp.obj CMakeFiles/Reisende.dir/Token.cpp.obj CMakeFiles/Reisende.dir/TurnSystem.cpp.obj CMakeFiles/Reisende.dir/Graphics.cpp.obj CMakeFiles/Reisende.dir/AStar.cpp.obj CMakeFiles/Reisende.dir/Map.cpp.obj | libcore.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-audio-s-d.a C$:/SFML/lib/libsfml-network-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libfreetype.a C$:/SFML/lib/libopenal32.a C$:/SFML/lib/libvorbisfile.a C$:/SFML/lib/libvorbisenc.a C$:/SFML/lib/libvorbis.a C$:/SFML/lib/libogg.a C$:/SFML/lib/libFLAC.a C$:/SFML/lib/libsfml-system-s-d.a || libcore.a
   FLAGS = -g
   LINK_LIBRARIES = libcore.a  C:/SFML/lib/libsfml-system-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-audio-s-d.a  C:/SFML/lib/libsfml-network-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  -lgdi32  -lOpenGL32  C:/SFML/lib/libfreetype.a  C:/SFML/lib/libopenal32.a  C:/SFML/lib/libvorbisfile.a  C:/SFML/lib/libvorbisenc.a  C:/SFML/lib/libvorbis.a  C:/SFML/lib/libogg.a  C:/SFML/lib/libFLAC.a  C:/SFML/lib/libsfml-system-s-d.a  -lwinmm  -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Reisende.dir

@@ -5,8 +5,8 @@
 #ifndef MAIN_CPP_TURNSYSTEM_H
 #define MAIN_CPP_TURNSYSTEM_H
 
-#include "Librerie.h"
 #include "Token.h"
+#include "AStar.h"
 
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
@@ -25,7 +25,10 @@ private:
     int control=0; //controllo quante volte il nemico ha provato a cercare un bersaglio, se supera il 5, lo faccio semplicemente muovere
     int j=0;
     bool mouseHeld=false;
-    int p=9;
+    int p=9; //quante pedine ho, può essere facilmenye modificato
+
+    //SquareGrid grid = MakeDiagram();
+
 
     //TOKEN
     Token* token[9];

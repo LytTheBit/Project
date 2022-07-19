@@ -1,8 +1,7 @@
 //
 // Created by franc on 30/06/2022.
 //
-
-#include "Map.cpp"
+#include "AStar.h"
 
 template<typename T, typename priority_t>
 struct PriorityQueue {
@@ -86,4 +85,3 @@ void a_star_search
         }
     }
 }
-

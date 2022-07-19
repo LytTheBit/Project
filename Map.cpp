@@ -2,7 +2,7 @@
 // Created by franc on 30/06/2022.
 //
 
-#include "librerie.h"
+#include "Map.h"
 
 //Crea un tipo di dato GridLocation, che contiene la posizione sulla scacchiera
 struct GridLocation {
@@ -113,11 +113,11 @@ SquareGrid MakeDiagram() {
 //non è necessaria al gioco, ma può essere utile durante lo sviluppo
 template<class Graph>
 void draw_grid(const Graph& graph,
-               std::unordered_map<GridLocation, double>* distances=nullptr,
-               std::unordered_map<GridLocation, GridLocation>* point_to=nullptr,
-               std::vector<GridLocation>* path=nullptr,
-               GridLocation* start=nullptr,
-               GridLocation* goal=nullptr) {
+               std::unordered_map<GridLocation, double>* distances,
+               std::unordered_map<GridLocation, GridLocation>* point_to,
+               std::vector<GridLocation>* path,
+               GridLocation* start,
+               GridLocation* goal) {
     const int field_width = 3; //crea una costante per la quale alcuni simboli vengono stampati 3 volte
     std::cout << std::string(field_width * graph.width, '_') << '\n'; //stampa la parte alta del grafico ___
     for (int y = 0; y != graph.height; ++y) {
@@ -152,9 +152,9 @@ void draw_grid(const Graph& graph,
 // Funzione per calcolare la distanza da un punto A ad un punto B
 template<class Graph>
 int DistanceCalculation(const Graph& graph,
-               std::vector<GridLocation>* path=nullptr,
-               GridLocation* start=nullptr,
-               GridLocation* goal=nullptr) {
+               std::vector<GridLocation>* path,
+               GridLocation* start,
+               GridLocation* goal) {
 int distance=0;
     for (int y = 0; y != graph.height; ++y) {
         for (int x = 0; x != graph.width; ++x) {

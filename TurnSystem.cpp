@@ -3,7 +3,6 @@
 //
 
 #include "TurnSystem.h"
-#include "AStar.cpp"
 
 
 TurnSystem::TurnSystem() {
@@ -393,7 +392,3 @@ void TurnSystem::Render(sf::RenderTarget& target) {
     for(int i=0;i<p;i++)
         this->token[i]->render(target);
 }
-
-
-
-
