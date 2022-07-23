@@ -27,13 +27,11 @@ private:
     bool mouseHeld=false;
     int p=9; //quante pedine ho, può essere facilmenye modificato
 
-    //SquareGrid grid = MakeDiagram();
-
 
     //TOKEN
     Token* token[9];
-    Token* A;
-    Token* B;
+    Token* attacker;
+    Token* attacked;
 
     void InizializedToken();
 

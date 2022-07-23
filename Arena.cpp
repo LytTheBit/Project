@@ -14,8 +14,8 @@ Arena::~Arena() {
 
 void Arena::inizializedTexture() {
     //la funzione che mi fa inserire la texture
-    this->texture.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Palace.png");
-    this->textureViola.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Pointer.png");
+    this->texture.loadFromFile("../Sprites/Palace.png");
+    this->textureViola.loadFromFile("../Sprites/Pointer.png");
 }
 void Arena::inizializedSprite() {
     //la funzione che mi fa creare lo sprite

@@ -2,25 +2,46 @@
 // Created by franc on 17/07/2022.
 //
 
-#ifndef TURNSYSTEM_CPP_ASTAR_H
-#define TURNSYSTEM_CPP_ASTAR_H
+#ifndef MAIN_CPP_IMPLEMENTATION_H
+#define MAIN_CPP_IMPLEMENTATION_H
 
-#include "Map.h"
+#include <bits/stdc++.h>
+#include "Librerie.h"
 
-template<typename T, typename priority_t>
-struct PriorityQueue;
+using namespace std;
 
-template<typename Location>
-std::vector<Location> reconstruct_path(Location start, Location goal,std::unordered_map<Location, Location> came_from);
+#define ROW 6
+#define COL 7
 
-inline double heuristic(GridLocation a, GridLocation b);
+// Creating a shortcut for int, int pair type
+typedef pair<int, int> Pair;
 
-template<typename Location, typename Graph>
-void a_star_search(Graph graph, Location start, Location goal, std::unordered_map<Location, Location>& came_from, std::unordered_map<Location, double>& cost_so_far);
-/*
-class AStar {
+// Creating a shortcut for pair<int, pair<int, int>> type
+typedef pair<double, pair<int, int> > pPair;
 
+// A structure to hold the necessary parameters
+struct cell {
+    // Row and Column index of its parent
+    // Note that 0 <= i <= ROW-1 & 0 <= j <= COL-1
+    int parent_i, parent_j;
+    // f = g + h
+    double f, g, h;
 };
-*/
 
-#endif //TURNSYSTEM_CPP_ASTAR_H
+bool isValid(int row, int col);
+bool isUnBlocked(int grid[][COL], int row, int col);
+bool isDestination(int row, int col, Pair dest);
+double calculateHValue(int row, int col, Pair dest);
+void tracePath(cell cellDetails[][COL], Pair dest);
+void aStarSearch(int grid[][COL], Pair src, Pair dest);
+
+extern sf::Vector2i percorso[10];
+extern int distanza;
+
+void SetPercorso(int A, Pair B);
+sf::Vector2i GetPercorso(int A);
+
+void SetDistanza(int A);
+int GetDistanza();
+
+#endif //MAIN_CPP_IMPLEMENTATION_H
