@@ -116,20 +116,8 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             //arrivo
             Pair dest = make_pair(MouseOnTheBoard(mousePos).x,MouseOnTheBoard(mousePos).y);
 
-            //Test di A*
-            //int grid[ROW][COL];
-            std::fill(*grid,*grid+ROW*COL,1);
-
-            //aggiorna i pezzi sulla scacchiera
-            for(int i=0;i<p;i++){//un token può passare dalla casella di un alleato
-                if(token[i]->GetOwner()!=1)
-                    grid[token[i]->GetPosX()][token[i]->GetPosY()]=0;
-            }
-
-            // partenza
-            //Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
-            // arrivo
-            //Pair dest = make_pair(destination[0].x, destination[0].y);
+            //creare la mappa
+            GenerateMap(1);
 
             aStarSearch(grid, src, dest);
             //calcolo distance percorsa
@@ -209,6 +197,7 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
 void TurnSystem::AttackAnimation() {
     std::cout << "è stato attaccato: " << attacked->GetName() << " con " << attacker->GetName() << "\n";
     attacked->attached(attacker->GetAtk());
+    std::cout << "a " << attacked->GetName() << " sono rimasti " << attacked->GetHp() << "\n";
     enemy = ENEMY::loading;
     phase = PHASE::pawnSelection;
     DeathCheck();
@@ -216,14 +205,7 @@ void TurnSystem::AttackAnimation() {
 
 void TurnSystem::EnemyLoading() {
     //crea la scacchiera
-    std::fill(*grid,*grid+ROW*COL,1);
-
-    //aggiorna i pezzi sulla scacchiera
-    for (int i = 0; i < p; i++) {//un token può passare dalla casella di un alleato
-        if (token[i]->GetOwner() != 2)
-            grid[token[i]->GetPosX()][token[i]->GetPosY()]=0;
-    }
-    std::cout << "\n";
+    GenerateMap(2);
 
     int min=100;
     //scelta: che pezzo attaccare
@@ -398,12 +380,13 @@ void TurnSystem::UpdatePath(){
     }
 }
 
-void TurnSystem::GenerateMap() {
-    int grid[ROW][COL]
-            = { { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1}};
+void TurnSystem::GenerateMap(int owner) {
+    std::fill(*grid,*grid+ROW*COL,1);
+
+    //aggiorna i pezzi sulla scacchiera
+    for(int i=0;i<p;i++){//un token può passare dalla casella di un alleato
+        if(token[i]->GetOwner()!=owner)
+            grid[token[i]->GetPosX()][token[i]->GetPosY()]=0;
+    }
+
 }

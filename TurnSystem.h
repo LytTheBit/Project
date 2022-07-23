@@ -65,7 +65,7 @@ public:
     //Render pedine
     void Render(sf::RenderTarget& target);
 
-    void GenerateMap();//TODO creare una funzione per creare la mappa
+    void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
 };
