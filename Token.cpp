@@ -38,7 +38,7 @@ Token::~Token() {
 void Token::attached(int AttaccoSubito) {
     if(AttaccoSubito>=Def)
         Hp=Hp-(AttaccoSubito-Def);
-}//funzione di prova di un possibile attacco subito
+}//funzione di turnSystem di un possibile attacco subito
 
 //Getter delle pedine
 std::string Token::GetName() {
@@ -94,7 +94,7 @@ void Token::updateMovement(sf::Vector2i& mousePos) {
         this->sprite.move(0.f,-1.f);
     }
 
-    //il Token è arrivato a destinazione
+    //il Token è arrivato a destination
     if((startingPointX+(mousePos.x * 32 * 3))==this->sprite.getPosition().x)
         PosX=mousePos.x;
     if((startingPointY+(mousePos.y * 32 * 3))==this->sprite.getPosition().y)

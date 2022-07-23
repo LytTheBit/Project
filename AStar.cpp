@@ -7,6 +7,10 @@ using namespace std;
 sf::Vector2i percorso[10];
 int distanza;
 
+void Clear(){
+    SetDistanza(0);
+}
+
 // A Utility Function to check whether given cell (row, col)
 // is a valid cell or not.
 bool isValid(int row, int col)
@@ -102,6 +106,8 @@ int GetDistanza(){
 // to A* Search Algorithm
 void aStarSearch(int grid[][COL], Pair src, Pair dest)
 {
+    Clear();
+
     // If the source is out of range
     if (isValid(src.first, src.second) == false) {
         printf("Source is invalid\n");

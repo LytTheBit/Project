@@ -10,7 +10,7 @@
 
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
-enum ENEMY {calculing=0, movment=1, attack=2};
+enum ENEMY {loading=0, movement=1, attack=2};
 
 
 
@@ -19,9 +19,9 @@ private:
 
     short turnOf = TURN_OF::player;
     short phase = PHASE::pawnSelection;
-    short enemy = ENEMY::calculing;
-    sf::Vector2i destinazione[10]; //ipotizzo che nessuna pedina potrà mai muoversi cosi tanto
-    int distanza;
+    short enemy = ENEMY::loading;
+    sf::Vector2i destination[10]; //ipotizzo che nessuna pedina potrà mai muoversi cosi tanto
+    int distance;
     int control=0; //controllo quante volte il nemico ha provato a cercare un bersaglio, se supera il 5, lo faccio semplicemente muovere
     int j=0;
     bool mouseHeld=false;
@@ -46,12 +46,12 @@ public:
 
     //FASI
     void WhoMoves(sf::Vector2i &pos);
-    void WhereItMove(sf::Vector2i &mousePos);
+    void WhereItMoves(sf::Vector2i &mousePos);
     void MoveAnimation();
     void WhoAttacks(sf::Vector2i &pos);
     void AttackAnimation();
 
-    void EnemyCalculation();
+    void EnemyLoading();
 
     //controlli delle pedine
     bool PositionCheck();
@@ -63,6 +63,9 @@ public:
 
     //Render pedine
     void Render(sf::RenderTarget& target);
+
+    //Aggiorna il percorso delle pedine
+    void UpdatePath();
 };
 
 #endif //MAIN_CPP_TURNSYSTEM_H

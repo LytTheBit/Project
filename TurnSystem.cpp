@@ -16,19 +16,19 @@ TurnSystem::~TurnSystem() {
 void TurnSystem::InizializedToken() {
     sf::Image image;
     //pedine giocanti
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Soldier.png");
+    image.loadFromFile("../Sprites/Soldier.png");
     token[0]= new Token("soldato",image,1,10,10,5,5,1,1,0);
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Mage.png");
+    image.loadFromFile("../Sprites/Mage.png");
     token[1]= new Token("mago",image,1,8,15,0,4,2,0,1);
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Demon.png");
+    image.loadFromFile("../Sprites/Demon.png");
     token[2]= new Token("demone",image,2,6,6,6,3,1,5,5);
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Octopus.png");
+    image.loadFromFile("../Sprites/Octopus.png");
     token[3]= new Token("polipo(?)",image,2,8,4,6,3,2,3,4);
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Reptilian.png");
+    image.loadFromFile("../Sprites/Reptilian.png");
     token[4]= new Token("lucertoloide",image,2,5,8,5,3,1,4,3);
 
     //Colonne
-    image.loadFromFile("C:/Users/franc/Desktop/Reisende/Sprites/Column.png");
+    image.loadFromFile("../Sprites/Column.png");
     token[5] = new Token("colonna",image,0,20,0,0,0,0,1,1);
     token[6] = new Token("colonna",image,0,20,0,0,0,0,1,4);
     token[7] = new Token("colonna",image,0,20,0,0,0,0,5,1);
@@ -37,36 +37,49 @@ void TurnSystem::InizializedToken() {
 
 
 void TurnSystem::Update(sf::Vector2i &mousePos) {
-    if(this->turnOf == TURN_OF::player){
-        control=0;
-        if (this->phase == PHASE::pawnSelection){
-            WhoMoves(mousePos);
-        }
-        else if (this->phase == PHASE::positionSelection){
-            WhereItMove(mousePos);
-        }
-        else if(this->phase == PHASE::motionAnimation){
-            MoveAnimation();
-        }
-        else if (this->phase == PHASE::targetSelection){
-            WhoAttacks(mousePos);
-        }
-        else if(this->phase == PHASE::attackAnimation){
-            AttackAnimation();
-            turnOf = TURN_OF::computer;
-        }
-    }
-    else if(this->turnOf == TURN_OF::computer){
-        if(this->enemy==ENEMY::calculing) {
-            EnemyCalculation();
-        }
-        else if(this->enemy==ENEMY::movment){
-            MoveAnimation();
-        }
-        else if(enemy==ENEMY::attack){
-            AttackAnimation();
-            turnOf = TURN_OF::player;
-        }
+
+    switch (this->turnOf) {
+        case TURN_OF::player:
+            control=0;
+            switch (this->phase) {
+                case PHASE::pawnSelection:
+                    WhoMoves(mousePos);
+                    break;
+                case PHASE::positionSelection:
+                    WhereItMoves(mousePos);
+                    break;
+
+                case PHASE::motionAnimation:
+                    MoveAnimation();
+                    break;
+
+                case PHASE::targetSelection:
+                    WhoAttacks(mousePos);
+                    break;
+
+                case PHASE::attackAnimation:
+                    AttackAnimation();
+                    turnOf = TURN_OF::computer;
+                    break;
+
+            }
+            // break of turnOf
+            break;
+        case TURN_OF::computer:
+            switch (this->enemy) {
+                case ENEMY::loading:
+                    EnemyLoading();
+                    break;
+                case ENEMY::movement:
+                    MoveAnimation();
+                    break;
+                case ENEMY::attack:
+                    AttackAnimation();
+                    turnOf = TURN_OF::player;
+                    break;
+            }
+            // break of turnOf
+            break;
     }
 }
 
@@ -94,12 +107,12 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
 }
 
 //Dove lo vuoi muovere?
-void TurnSystem::WhereItMove(sf::Vector2i &mousePos) {
+void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {//se clicco il mouse
         if(mouseHeld==false){
             mouseHeld=true;
 
-            destinazione[0]=MouseOnTheBoard(mousePos);
+            destination[0]=MouseOnTheBoard(mousePos);
 
             //Test di A*
             int grid[ROW][COL]
@@ -119,28 +132,24 @@ void TurnSystem::WhereItMove(sf::Vector2i &mousePos) {
             // partenza
             Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
             // arrivo
-            Pair dest = make_pair(destinazione[0].x, destinazione[0].y);
+            Pair dest = make_pair(destination[0].x, destination[0].y);
 
             aStarSearch(grid, src, dest);
 
-            //calcolo distanza percorsa
-            distanza=GetDistanza();
+            //calcolo distance percorsa
+            distance=GetDistanza();
 
-            if((PositionCheck()==true) && (distanza <= attacker->GetSpeed()))
+            if((PositionCheck()==true) && (distance <= attacker->GetSpeed()))
             {
 
                 //elenco caselle percorse
-                for(int i=0;i<=distanza;i++){
-                    std::cout<< "il percorso e' " << GetPercorso(i).x << " - "<< GetPercorso(i).y <<"\n";
-                    destinazione[i].x=GetPercorso(i).x;
-                    destinazione[i].y=GetPercorso(i).y;
-                }
+                UpdatePath();
 
                 phase=PHASE::motionAnimation;
                 std::cout << '\n' << "perfetto \n";
             }
             else{
-                std::cout << '\n' << "il personaggio non puo' muoversi li, cambia destinazione \n";
+                std::cout << '\n' << "il personaggio non puo' muoversi li, cambia destination \n";
             }
         }
     }
@@ -152,10 +161,10 @@ void TurnSystem::WhereItMove(sf::Vector2i &mousePos) {
 void TurnSystem::MoveAnimation() {
     //elenco caselle percorse
 
-    attacker->update(destinazione[j]);
-    if(attacker->GetPosX() == destinazione[j].x && attacker->GetPosY() == destinazione[j].y)
+    attacker->update(destination[j]);
+    if(attacker->GetPosX() == destination[j].x && attacker->GetPosY() == destination[j].y)
         j++;
-    if(attacker->GetPosX() == destinazione[distanza].x && attacker->GetPosY() == destinazione[distanza].y){
+    if(attacker->GetPosX() == destination[distance].x && attacker->GetPosY() == destination[distance].y){
         j=0;
         if(turnOf==TURN_OF::player)
             phase = PHASE::targetSelection;
@@ -163,7 +172,7 @@ void TurnSystem::MoveAnimation() {
             if(control<=5)
                 enemy = ENEMY::attack;
             else{
-                enemy = ENEMY::calculing;
+                enemy = ENEMY::loading;
                 turnOf = TURN_OF::player;
             }
         }
@@ -203,13 +212,14 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
 void TurnSystem::AttackAnimation() {
     std::cout << "è stato attaccato: " << attacked->GetName() << " con " << attacker->GetName() << "\n";
     attacked->attached(attacker->GetAtk());
-    enemy = ENEMY::calculing;
+    enemy = ENEMY::loading;
     phase = PHASE::pawnSelection;
     DeathCheck();
 }
 
-void TurnSystem::EnemyCalculation() {
+void TurnSystem::EnemyLoading() {
     //crea la scacchiera
+    //TODO creare una funzione per generare la mappa
     int grid[ROW][COL]
             = { { 1, 1, 1, 1, 1, 1, 1},
                 { 1, 1, 1, 1, 1, 1, 1},
@@ -267,42 +277,38 @@ void TurnSystem::EnemyCalculation() {
                     Pair src, dest;
 
                     if(control>5){ //nel caso non trovi nessuna pedina da attaccare il computer proverà a prendere il controllo di
-                        destinazione[0].x = (rand() % 3)+2 + rx; //una casella centrale. "Prendere" il centro è generalmente sempre
-                        destinazione[0].y = (rand() % 2)+2 + ry; //una buona mossa nei giochi di strategia come scacchi
+                        destination[0].x = (rand() % 3) + 2 + rx; //una casella centrale. "Prendere" il centro è generalmente sempre
+                        destination[0].y = (rand() % 2) + 2 + ry; //una buona mossa nei giochi di strategia come scacchi
                     }
                     else{
-                        destinazione[0].x = attacked->GetPosX() + rx;
-                        destinazione[0].y = attacked->GetPosY() + ry;
+                        destination[0].x = attacked->GetPosX() + rx;
+                        destination[0].y = attacked->GetPosY() + ry;
                     }
 
                     //std::cout << "prende in consideraztine (" <<rx<< " , " <<ry<< ") \n";
-                    std::cout << "la destinazione sarebbe (" << destinazione[0].x <<" - "<<destinazione[0].y<<") \n";
+                    std::cout << "la destination sarebbe (" << destination[0].x << " - " << destination[0].y << ") \n";
 
-                    if((destinazione[0].x > 6) || (destinazione[0].x < 0) || (destinazione[0].y > 5) || (destinazione[0].y < 0)){
+                    if((destination[0].x > 6) || (destination[0].x < 0) || (destination[0].y > 5) || (destination[0].y < 0)){
                         std::cout << "ma uscirebbe dalla mappa \n";
                     }
                     else {
                         std::cout << "controllo fattibilita' del percorso \n";
 
                         aStarSearch(grid, src, dest);
-
+                        UpdatePath();
 
                         if(/*path[0].x == -1 || path[0].y == -1*/false) { //TODO scrivere cosa succede se non trova il percorso
                             std::cout << "non è una via percorribile \n";
                         }
                         else{ //è stato trovato un percorso
-                            distanza=GetDistanza();
+                            distance=GetDistanza();
                             std::cout << "il pezzo si muove di' " << attacker->GetSpeed() << " e il percorso e' lungo:"
-                                      << distanza << "\n";
+                                      << distance << "\n";
 
-                            if (PositionCheck() && (distanza <= attacker->GetSpeed())) {
+                            if (PositionCheck() && (distance <= attacker->GetSpeed())) {
                                 std::cout << "il percorso va bene ed e': \n";
-                                for (int i = 0; i <= distanza; i++) {
-                                    std::cout << GetPercorso(i).x << " - "<< GetPercorso(i).y << "\n";
-                                    destinazione[i].x = GetPercorso(i).x;
-                                    destinazione[i].y = GetPercorso(i).y;
-                                }
-                                enemy = ENEMY::movment;
+
+                                enemy = ENEMY::movement;
 
                                 //esce dai vari loop
                                 l = p;
@@ -347,7 +353,7 @@ void TurnSystem::EnemyCalculation() {
 bool TurnSystem::PositionCheck() {
     for(int i=0;i<p;i++){
         if((token[i]->GetPosX() != attacker->GetPosX()) || (token[i]->GetPosY() != attacker->GetPosY()))
-            if(token[i]->GetPosX()==destinazione[0].x && token[i]->GetPosY()==destinazione[0].y)
+            if(token[i]->GetPosX() == destination[0].x && token[i]->GetPosY() == destination[0].y)
                 return false;
     }
     return true;
@@ -390,4 +396,13 @@ sf::Vector2i TurnSystem::MouseOnTheBoard(sf::Vector2i &mousePos) {
 void TurnSystem::Render(sf::RenderTarget& target) {
     for(int i=0;i<p;i++)
         this->token[i]->render(target);
+}
+
+void TurnSystem::UpdatePath(){
+    //elenco caselle percorse
+    for(int i=0; i <= distance; i++){
+        std::cout<< "il percorso e' " << GetPercorso(i).x << " - "<< GetPercorso(i).y <<"\n";
+        destination[i].x=GetPercorso(i).x;
+        destination[i].y=GetPercorso(i).y;
+    }
 }

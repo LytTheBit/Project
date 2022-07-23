@@ -6,7 +6,7 @@
 
 //--funzioni private--
 void Game::inizializedTurnSystem() {
-    this->prova= new TurnSystem();
+    this->turnSystem= new TurnSystem();
 }
 void Game::inizializedWindow() {
     //crea la finestra
@@ -27,7 +27,7 @@ Game::Game() {
     this->inizializedArena();
 }
 Game::~Game() {
-    delete this->prova;
+    delete this->turnSystem;
     delete this->window;
     delete this->arena;
 }
@@ -55,7 +55,7 @@ void Game::update() {
     this->updateTurnSystem();
 }
 void Game::updateTurnSystem() {
-    this->prova->Update(this->mousePos);
+    this->turnSystem->Update(this->mousePos);
 }
 void Game::updateMouse() {//Aggiorno la variabile contenente la posizione del mause
     this->mousePos = sf::Mouse::getPosition(*this->window);
@@ -66,7 +66,7 @@ void Game::updatePointer() {
 
 
 void Game::renderToken() {
-    this->prova->Render(*this->window);
+    this->turnSystem->Render(*this->window);
 }
 void Game::renderArena() {
     this->arena->render(*this->window);

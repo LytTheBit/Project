@@ -14,8 +14,7 @@ private:
     //Window
     sf::RenderWindow* window;
 
-    TurnSystem* prova;
-
+    TurnSystem* turnSystem;
 
     //Arena
     Arena* arena;
@@ -25,6 +24,7 @@ private:
     void inizializedTurnSystem();
     void inizializedWindow();
     void inizializedArena();
+
 public:
     //costruttore e distruttore
     Game();
