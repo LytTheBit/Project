@@ -111,17 +111,14 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {//se clicco il mouse
         if(mouseHeld==false){
             mouseHeld=true;
-
-            destination[0]=MouseOnTheBoard(mousePos);
+            //partenza
+            Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
+            //arrivo
+            Pair dest = make_pair(MouseOnTheBoard(mousePos).x,MouseOnTheBoard(mousePos).y);
 
             //Test di A*
-            int grid[ROW][COL]
-                    = { { 1, 1, 1, 1, 1, 1, 1},
-                        { 1, 1, 1, 1, 1, 1, 1},
-                        { 1, 1, 1, 1, 1, 1, 1},
-                        { 1, 1, 1, 1, 1, 1, 1},
-                        { 1, 1, 1, 1, 1, 1, 1},
-                        { 1, 1, 1, 1, 1, 1, 1}};
+            //int grid[ROW][COL];
+            std::fill(*grid,*grid+ROW*COL,1);
 
             //aggiorna i pezzi sulla scacchiera
             for(int i=0;i<p;i++){//un token può passare dalla casella di un alleato
@@ -130,21 +127,21 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             }
 
             // partenza
-            Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
+            //Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
             // arrivo
-            Pair dest = make_pair(destination[0].x, destination[0].y);
+            //Pair dest = make_pair(destination[0].x, destination[0].y);
 
             aStarSearch(grid, src, dest);
-
             //calcolo distance percorsa
             distance=GetDistanza();
+            //elenco caselle percorse
+            UpdatePath();
 
-            if((PositionCheck()==true) && (distance <= attacker->GetSpeed()))
+            if(src==dest){
+                phase=PHASE::targetSelection;
+            }
+            else if((PositionCheck()==true) && (distance <= attacker->GetSpeed()))
             {
-
-                //elenco caselle percorse
-                UpdatePath();
-
                 phase=PHASE::motionAnimation;
                 std::cout << '\n' << "perfetto \n";
             }
@@ -219,14 +216,7 @@ void TurnSystem::AttackAnimation() {
 
 void TurnSystem::EnemyLoading() {
     //crea la scacchiera
-    //TODO creare una funzione per generare la mappa
-    int grid[ROW][COL]
-            = { { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1},
-                { 1, 1, 1, 1, 1, 1, 1}};
+    std::fill(*grid,*grid+ROW*COL,1);
 
     //aggiorna i pezzi sulla scacchiera
     for (int i = 0; i < p; i++) {//un token può passare dalla casella di un alleato
@@ -244,7 +234,7 @@ void TurnSystem::EnemyLoading() {
                 attacked = token[i];
             }
         }
-        std::cout << "preso di mira il token più debole: " << attacked->GetName() << " \n";
+        std::cout << "preso di mira il token piu' debole: " << attacked->GetName() << " \n";
     }
     else if(control<=5) { //per 5 volte cerco un pezzo casuale
         while (true) {
@@ -275,20 +265,21 @@ void TurnSystem::EnemyLoading() {
 
                 for (int f = 0; f <= t*4; f++) {
                     Pair src, dest;
-
+                    src.first=attacker->GetPosX();
+                    src.second=attacker->GetPosY();
                     if(control>5){ //nel caso non trovi nessuna pedina da attaccare il computer proverà a prendere il controllo di
-                        destination[0].x = (rand() % 3) + 2 + rx; //una casella centrale. "Prendere" il centro è generalmente sempre
-                        destination[0].y = (rand() % 2) + 2 + ry; //una buona mossa nei giochi di strategia come scacchi
+                        dest.first = (rand() % 3) + 2 + rx; //una casella centrale. "Prendere" il centro è generalmente sempre
+                        dest.second = (rand() % 2) + 2 + ry; //una buona mossa nei giochi di strategia come scacchi
                     }
                     else{
-                        destination[0].x = attacked->GetPosX() + rx;
-                        destination[0].y = attacked->GetPosY() + ry;
+                        dest.first = attacked->GetPosX() + rx;
+                        dest.second = attacked->GetPosY() + ry;
                     }
 
                     //std::cout << "prende in consideraztine (" <<rx<< " , " <<ry<< ") \n";
-                    std::cout << "la destination sarebbe (" << destination[0].x << " - " << destination[0].y << ") \n";
+                    std::cout << "la destination sarebbe (" << dest.first << " - " << dest.second << ") \n";
 
-                    if((destination[0].x > 6) || (destination[0].x < 0) || (destination[0].y > 5) || (destination[0].y < 0)){
+                    if((dest.first > 6) || (dest.first < 0) || (dest.second > 5) || (dest.second < 0)){
                         std::cout << "ma uscirebbe dalla mappa \n";
                     }
                     else {
@@ -297,8 +288,8 @@ void TurnSystem::EnemyLoading() {
                         aStarSearch(grid, src, dest);
                         UpdatePath();
 
-                        if(/*path[0].x == -1 || path[0].y == -1*/false) { //TODO scrivere cosa succede se non trova il percorso
-                            std::cout << "non è una via percorribile \n";
+                        if(GetDistanza()==-1){
+                            std::cout << "percorso non trovato \n";
                         }
                         else{ //è stato trovato un percorso
                             distance=GetDistanza();
@@ -405,4 +396,14 @@ void TurnSystem::UpdatePath(){
         destination[i].x=GetPercorso(i).x;
         destination[i].y=GetPercorso(i).y;
     }
+}
+
+void TurnSystem::GenerateMap() {
+    int grid[ROW][COL]
+            = { { 1, 1, 1, 1, 1, 1, 1},
+                { 1, 1, 1, 1, 1, 1, 1},
+                { 1, 1, 1, 1, 1, 1, 1},
+                { 1, 1, 1, 1, 1, 1, 1},
+                { 1, 1, 1, 1, 1, 1, 1},
+                { 1, 1, 1, 1, 1, 1, 1}};
 }

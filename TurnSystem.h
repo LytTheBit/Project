@@ -24,6 +24,7 @@ private:
     int distance;
     int control=0; //controllo quante volte il nemico ha provato a cercare un bersaglio, se supera il 5, lo faccio semplicemente muovere
     int j=0;
+    int grid[ROW][COL];
     bool mouseHeld=false;
     int p=9; //quante pedine ho, può essere facilmenye modificato
 
@@ -64,6 +65,7 @@ public:
     //Render pedine
     void Render(sf::RenderTarget& target);
 
+    void GenerateMap();//TODO creare una funzione per creare la mappa
     //Aggiorna il percorso delle pedine
     void UpdatePath();
 };

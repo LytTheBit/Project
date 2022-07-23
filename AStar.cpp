@@ -106,7 +106,7 @@ int GetDistanza(){
 // to A* Search Algorithm
 void aStarSearch(int grid[][COL], Pair src, Pair dest)
 {
-    Clear();
+    //Clear();
 
     // If the source is out of range
     if (isValid(src.first, src.second) == false) {
@@ -412,8 +412,10 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
     // reach the destination cell. This may happen when the
     // there is no way to destination cell (due to
     // blockages)
-    if (foundDest == false)
+    if (foundDest == false){
         printf("Failed to find the Destination Cell\n");
+        SetDistanza(-1);
+    }
 
     return;
 }
