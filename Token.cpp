@@ -5,7 +5,7 @@
 #include "Token.h"
 
 void Token::inizializedSprite(const sf::Image& image) {
-    //A seconda della variabile "aspetto" del token, li carico una texture diversa
+    //A seconda della variabile "aspetto" del token, li carico una textureMenu diversa
     this->textureSheet.loadFromImage(image);
 
     this->sprite.setTexture(this->textureSheet);

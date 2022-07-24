@@ -7,14 +7,14 @@
 #include "Librerie.h"
 
 class Arena {
-    sf::Texture texture; //dichiarazione della variabile della texture
-    sf::Sprite sprite; //dichiarazione della variabile dello sprite
+    sf::Texture texture; //dichiarazione della variabile della textureMenu
+    sf::Sprite sprite; //dichiarazione della variabile dello spriteMenu
     sf::Texture textureViola;
     sf::Sprite spriteViola;
 
     //FUNZIONI PRIVATE (per la creazione del mago)
-    void inizializedTexture(); //la funzione che mi fa inserire la texture
-    void inizializedSprite(); //la funzione che mi fa creare lo sprite
+    void inizializedTexture(); //la funzione che mi fa inserire la textureMenu
+    void inizializedSprite(); //la funzione che mi fa creare lo spriteMenu
 public:
     Arena();
     ~Arena();

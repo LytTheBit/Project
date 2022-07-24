@@ -13,14 +13,14 @@ Arena::~Arena() {
 }
 
 void Arena::inizializedTexture() {
-    //la funzione che mi fa inserire la texture
+    //la funzione che mi fa inserire la textureMenu
     this->texture.loadFromFile("../Sprites/Palace.png");
     this->textureViola.loadFromFile("../Sprites/Pointer.png");
 }
 void Arena::inizializedSprite() {
-    //la funzione che mi fa creare lo sprite
+    //la funzione che mi fa creare lo spriteMenu
 
-    //Il mio inizializedSprite setta come "texture" dello "sprite" la "texture" che
+    //Il mio inizializedSprite setta come "textureMenu" dello "spriteMenu" la "textureMenu" che
     // vado ad implementere nel metodo "inizializedTexture"
     this->sprite.setTexture(this->texture);
 

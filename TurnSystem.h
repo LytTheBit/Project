@@ -16,7 +16,7 @@ enum ENEMY {loading=0, movement=1, attack=2};
 
 class TurnSystem{
 private:
-
+    Pair src, dest;
     short turnOf = TURN_OF::player;
     short phase = PHASE::pawnSelection;
     short enemy = ENEMY::loading;
@@ -65,9 +65,13 @@ public:
     //Render pedine
     void Render(sf::RenderTarget& target);
 
+    //genera la mappa
     void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
+
+    //ritorna il vincitore
+    int Winner();
 };
 
 #endif //MAIN_CPP_TURNSYSTEM_H
