@@ -15,9 +15,13 @@ void Game::inizializedWindow() {
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
 }
+void Game::inizializedMusic() {
+    //music.openFromFile("../Theme/Greenpath.ogg")
+    //music.getLoopPoints();
+}
 void Game::inizializedClass() {
     menu=new Menu();
-    arena = new Arena();
+    arena=new Arena();
 }
 
 
@@ -25,6 +29,7 @@ void Game::inizializedClass() {
 Game::Game() {
     this->inizializedTurnSystem();
     this->inizializedWindow();
+    //inizializedMusic();
     this->inizializedClass();
 }
 Game::~Game() {
@@ -46,6 +51,7 @@ void Game::run() {
 //--funzioni pubbliche--
 void Game::update() {
     sf::Event event;
+    //music.play();
     while (this->window->pollEvent(event))//Chiude il gioco premendo sulla X
     {
         if (event.Event::type == sf::Event::Closed)
@@ -119,6 +125,8 @@ void Game::render() {
     }
     this->window->display();
 }
+
+
 
 
 

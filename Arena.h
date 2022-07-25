@@ -9,8 +9,8 @@
 class Arena {
     sf::Texture texture; //dichiarazione della variabile della textureMenu
     sf::Sprite sprite; //dichiarazione della variabile dello spriteMenu
-    sf::Texture textureViola;
-    sf::Sprite spriteViola;
+    sf::Texture textureRed;
+    sf::Sprite spriteRed;
 
     //FUNZIONI PRIVATE (per la creazione del mago)
     void inizializedTexture(); //la funzione che mi fa inserire la textureMenu

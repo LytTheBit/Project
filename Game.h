@@ -18,7 +18,7 @@ private:
 
     //Window
     sf::RenderWindow* window;
-
+    //sf::Music music;
     TurnSystem* turnSystem;
 
     //Menu
@@ -31,6 +31,7 @@ private:
     //--funzioni private--
     void inizializedTurnSystem();
     void inizializedWindow();
+    void inizializedMusic();
     void inizializedClass();
 
 public:

@@ -7,6 +7,7 @@
 
 TurnSystem::TurnSystem() {
     this->InizializedToken();
+    graphics=new Graphics();
 }
 TurnSystem::~TurnSystem() {
 
@@ -90,6 +91,9 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
                 if(token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()==1){
                     attacker = token[i];
                     std::cout << "Selezionato:" << attacker->GetName() << "\n";
+
+                    graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
+
                     i=9;
                     phase=PHASE::positionSelection;
                 }
@@ -151,8 +155,10 @@ void TurnSystem::MoveAnimation() {
         j++;
     if(attacker->GetPosX() == destination[distance].x && attacker->GetPosY() == destination[distance].y){
         j=0;
-        if(turnOf==TURN_OF::player)
+        if(turnOf==TURN_OF::player){
+            graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
             phase = PHASE::targetSelection;
+        }
         else if(turnOf==TURN_OF::computer){
             if(control<=5)
                 enemy = ENEMY::attack;
@@ -369,6 +375,7 @@ sf::Vector2i TurnSystem::MouseOnTheBoard(sf::Vector2i &mousePos) {
 
 //render pedine
 void TurnSystem::Render(sf::RenderTarget& target) {
+    graphics->render(target);
     for(int i=0;i<p;i++)
         this->token[i]->render(target);
 }
