@@ -7,6 +7,7 @@
 
 TurnSystem::TurnSystem() {
     this->InizializedToken();
+    graphics=new Graphics();
 }
 TurnSystem::~TurnSystem() {
 
@@ -17,7 +18,7 @@ void TurnSystem::InizializedToken() {
     sf::Image image;
     //pedine giocanti
     image.loadFromFile("../Sprites/Soldier.png");
-    token[0]= new Token("soldato",image,1,10,10,5,5,1,1,0);
+    token[0]= new Token("soldato",image,1,10,10,3,5,1,1,0);
     image.loadFromFile("../Sprites/Mage.png");
     token[1]= new Token("mago",image,1,8,15,0,4,2,0,1);
     image.loadFromFile("../Sprites/Demon.png");
@@ -35,9 +36,7 @@ void TurnSystem::InizializedToken() {
     token[8] = new Token("colonna",image,0,20,0,0,0,0,5,4);
 }
 
-
 void TurnSystem::Update(sf::Vector2i &mousePos) {
-
     switch (this->turnOf) {
         case TURN_OF::player:
             control=0;
@@ -83,7 +82,6 @@ void TurnSystem::Update(sf::Vector2i &mousePos) {
     }
 }
 
-
 //Chi vuoi muovere?
 void TurnSystem::WhoMoves(sf::Vector2i &pos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {//se clicco il mouse
@@ -93,6 +91,9 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
                 if(token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()==1){
                     attacker = token[i];
                     std::cout << "Selezionato:" << attacker->GetName() << "\n";
+
+                    graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
+
                     i=9;
                     phase=PHASE::positionSelection;
                 }
@@ -111,10 +112,13 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {//se clicco il mouse
         if(mouseHeld==false){
             mouseHeld=true;
+
+            //Pair src, dest;
+
             //partenza
-            Pair src = make_pair(attacker->GetPosX(), attacker->GetPosY());
+            src = make_pair(attacker->GetPosX(), attacker->GetPosY());
             //arrivo
-            Pair dest = make_pair(MouseOnTheBoard(mousePos).x,MouseOnTheBoard(mousePos).y);
+            dest = make_pair(MouseOnTheBoard(mousePos).x,MouseOnTheBoard(mousePos).y);
 
             //creare la mappa
             GenerateMap(1);
@@ -151,8 +155,10 @@ void TurnSystem::MoveAnimation() {
         j++;
     if(attacker->GetPosX() == destination[distance].x && attacker->GetPosY() == destination[distance].y){
         j=0;
-        if(turnOf==TURN_OF::player)
+        if(turnOf==TURN_OF::player){
+            graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
             phase = PHASE::targetSelection;
+        }
         else if(turnOf==TURN_OF::computer){
             if(control<=5)
                 enemy = ENEMY::attack;
@@ -203,6 +209,7 @@ void TurnSystem::AttackAnimation() {
     DeathCheck();
 }
 
+//calcola che azione deve fare il computer
 void TurnSystem::EnemyLoading() {
     //crea la scacchiera
     GenerateMap(2);
@@ -246,7 +253,7 @@ void TurnSystem::EnemyLoading() {
                 std::cout << "il pezzo ha un raggio di: " <<t<< "\n";
 
                 for (int f = 0; f <= t*4; f++) {
-                    Pair src, dest;
+                    //Pair src, dest;
                     src.first=attacker->GetPosX();
                     src.second=attacker->GetPosY();
                     if(control>5){ //nel caso non trovi nessuna pedina da attaccare il computer proverà a prendere il controllo di
@@ -323,10 +330,11 @@ void TurnSystem::EnemyLoading() {
     }
 }
 
+//controlla che due pedine non si sovrappongano
 bool TurnSystem::PositionCheck() {
     for(int i=0;i<p;i++){
         if((token[i]->GetPosX() != attacker->GetPosX()) || (token[i]->GetPosY() != attacker->GetPosY()))
-            if(token[i]->GetPosX() == destination[0].x && token[i]->GetPosY() == destination[0].y)
+            if(token[i]->GetPosX() == dest.first && token[i]->GetPosY() == dest.second)
                 return false;
     }
     return true;
@@ -367,6 +375,7 @@ sf::Vector2i TurnSystem::MouseOnTheBoard(sf::Vector2i &mousePos) {
 
 //render pedine
 void TurnSystem::Render(sf::RenderTarget& target) {
+    graphics->render(target);
     for(int i=0;i<p;i++)
         this->token[i]->render(target);
 }
@@ -380,7 +389,9 @@ void TurnSystem::UpdatePath(){
     }
 }
 
+//genera la mappa e a seconda della situazione sceglie che pezzi considerare come ostacoli
 void TurnSystem::GenerateMap(int owner) {
+    //svuoto la mappa dalle pedine precedenti
     std::fill(*grid,*grid+ROW*COL,1);
 
     //aggiorna i pezzi sulla scacchiera
@@ -389,4 +400,20 @@ void TurnSystem::GenerateMap(int owner) {
             grid[token[i]->GetPosX()][token[i]->GetPosY()]=0;
     }
 
+}
+
+int TurnSystem::Winner() {
+    int allay=0, enemy=0;
+    for(int i=0;i<p;i++){//un token può passare dalla casella di un alleato
+        if(token[i]->GetOwner()==1)
+            allay++;
+        else if(token[i]->GetOwner()==2)
+            enemy++;
+    }
+    if (allay==0)
+        return 2;
+    else if (enemy==0)
+        return 1;
+    else
+        return 0;
 }

@@ -13,14 +13,14 @@ Arena::~Arena() {
 }
 
 void Arena::inizializedTexture() {
-    //la funzione che mi fa inserire la texture
+    //la funzione che mi fa inserire la textureMenu
     this->texture.loadFromFile("../Sprites/Palace.png");
-    this->textureViola.loadFromFile("../Sprites/Pointer.png");
+    this->textureRed.loadFromFile("../Sprites/Pointer.png");
 }
 void Arena::inizializedSprite() {
-    //la funzione che mi fa creare lo sprite
+    //la funzione che mi fa creare lo spriteMenu
 
-    //Il mio inizializedSprite setta come "texture" dello "sprite" la "texture" che
+    //Il mio inizializedSprite setta come "textureMenu" dello "spriteMenu" la "textureMenu" che
     // vado ad implementere nel metodo "inizializedTexture"
     this->sprite.setTexture(this->texture);
 
@@ -30,9 +30,9 @@ void Arena::inizializedSprite() {
     //ridimensiona lo sfondo (in questo caso il triplo della dimensione)
     this->sprite.scale(3.f, 3.f);
 
-    this->spriteViola.setTexture(this->textureViola);
-    this->spriteViola.scale(3.f, 3.f);
-    this->spriteViola.setPosition(startingPointX, startingPointY);
+    this->spriteRed.setTexture(this->textureRed);
+    this->spriteRed.scale(3.f, 3.f);
+    this->spriteRed.setPosition(startingPointX, startingPointY);
 }
 
 void Arena::update(sf::Vector2i& mousePos) {
@@ -41,7 +41,7 @@ void Arena::update(sf::Vector2i& mousePos) {
         for(int j=0; j<=5; j++) {
             if (mousePos.x > (startingPointX+(i * 32 * 3.f)) && mousePos.y > (startingPointY+(j * 32 * 3.f)) &&
                 mousePos.x < (startingPointX+((i + 1) * 32 * 3.f)) && mousePos.y < (startingPointY+((j + 1) * 32 * 3.f))) {
-                this->spriteViola.setPosition((startingPointX+(i * 32 * 3.f)), (startingPointY+(j * 32 * 3.f)));
+                this->spriteRed.setPosition((startingPointX + (i * 32 * 3.f)), (startingPointY + (j * 32 * 3.f)));
             }
         }
     }
@@ -49,7 +49,7 @@ void Arena::update(sf::Vector2i& mousePos) {
 void Arena::render(sf::RenderTarget& target) {
     //il "target" andrà a disegnare il nostro personaggio, e poi il render di game lo disegnerà sullo schermo
     target.draw(this->sprite);
-    target.draw(this->spriteViola);
+    target.draw(this->spriteRed);
 }
 
 

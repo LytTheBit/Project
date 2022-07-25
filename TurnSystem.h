@@ -7,6 +7,7 @@
 
 #include "Token.h"
 #include "AStar.h"
+#include "Graphics.h"
 
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
@@ -16,7 +17,7 @@ enum ENEMY {loading=0, movement=1, attack=2};
 
 class TurnSystem{
 private:
-
+    Pair src, dest;
     short turnOf = TURN_OF::player;
     short phase = PHASE::pawnSelection;
     short enemy = ENEMY::loading;
@@ -28,6 +29,8 @@ private:
     bool mouseHeld=false;
     int p=9; //quante pedine ho, può essere facilmenye modificato
 
+    //graphics
+    Graphics* graphics;
 
     //TOKEN
     Token* token[9];
@@ -65,9 +68,13 @@ public:
     //Render pedine
     void Render(sf::RenderTarget& target);
 
+    //genera la mappa
     void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
+
+    //ritorna il vincitore
+    int Winner();
 };
 
 #endif //MAIN_CPP_TURNSYSTEM_H

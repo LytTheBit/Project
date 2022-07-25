@@ -15,8 +15,13 @@ void Game::inizializedWindow() {
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
 }
-void Game::inizializedArena() {
-    this->arena = new Arena();
+void Game::inizializedMusic() {
+    //music.openFromFile("../Theme/Greenpath.ogg")
+    //music.getLoopPoints();
+}
+void Game::inizializedClass() {
+    menu=new Menu();
+    arena=new Arena();
 }
 
 
@@ -24,7 +29,8 @@ void Game::inizializedArena() {
 Game::Game() {
     this->inizializedTurnSystem();
     this->inizializedWindow();
-    this->inizializedArena();
+    //inizializedMusic();
+    this->inizializedClass();
 }
 Game::~Game() {
     delete this->turnSystem;
@@ -45,14 +51,30 @@ void Game::run() {
 //--funzioni pubbliche--
 void Game::update() {
     sf::Event event;
+    //music.play();
     while (this->window->pollEvent(event))//Chiude il gioco premendo sulla X
     {
         if (event.Event::type == sf::Event::Closed)
             this->window->close();
     }
     this->updateMouse();
-    this->updatePointer();
-    this->updateTurnSystem();
+
+    switch (this->fase) {
+        case FASE::menu:
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                fase=FASE::game;
+            break;
+        case FASE::game:
+            this->updatePointer();
+            this->updateTurnSystem();
+            break;
+        case FASE::win:
+
+            break;
+        case FASE::lose:
+
+            break;
+    }
 }
 void Game::updateTurnSystem() {
     this->turnSystem->Update(this->mousePos);
@@ -64,7 +86,9 @@ void Game::updatePointer() {
     this->arena->update(this->mousePos);//passo la variabile contenente la posizione del mause al oggetto arena
 }
 
-
+void Game::renderMenu(int scope) {
+    this->menu->render(*this->window, scope);
+}
 void Game::renderToken() {
     this->turnSystem->Render(*this->window);
 }
@@ -76,10 +100,33 @@ void Game::render() {
     this->update();
 
     //spazio per disegnare il gioco
-    this->renderArena();
-    this->renderToken();
+    switch (this->fase) {
+        case FASE::menu:
+            renderMenu(0);
+            break;
+
+        case FASE::game:
+            this->renderArena();
+            this->renderToken();
+
+            if(turnSystem->Winner()==1)
+                fase=FASE::win;
+            else if(turnSystem->Winner()==2)
+                fase=FASE::lose;
+            break;
+
+        case FASE::win:
+            renderMenu(1);
+            break;
+
+        case FASE::lose:
+            renderMenu(2);
+            break;
+    }
     this->window->display();
 }
+
+
 
 
 
