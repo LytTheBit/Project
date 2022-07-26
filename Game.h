@@ -7,7 +7,7 @@
 
 #include "TurnSystem.h"
 #include "Menu.h"
-#include "Arena.h"
+#include "Screen.h"
 
 enum FASE {menu=0, game=1, win=2, lose=3};
 
@@ -17,21 +17,17 @@ private:
     short fase = FASE::menu;
 
     //Window
-    sf::RenderWindow* window;
-    //sf::Music music;
-    TurnSystem* turnSystem;
+    unique_ptr<sf::RenderWindow> window;
 
-    //Menu
-    Menu* menu;
+    unique_ptr<TurnSystem> turnSystem;
 
-    //Arena
-    Arena* arena;
+    //Screen
+    unique_ptr<Screen> screen;
     sf::Vector2i mousePos;
 
     //--funzioni private--
     void inizializedTurnSystem();
     void inizializedWindow();
-    void inizializedMusic();
     void inizializedClass();
 
 public:
@@ -47,9 +43,8 @@ public:
     void updateTurnSystem();
     void updateMouse();
     void updatePointer();
-    void renderMenu(int scope);
     void renderToken();
-    void renderArena();
+    void renderArena(int scope);
     void render();
 };
 
