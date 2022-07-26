@@ -18,22 +18,22 @@ void TurnSystem::InizializedToken() {
     sf::Image image;
     //pedine giocanti
     image.loadFromFile("../Sprites/Soldier.png");
-    token[0]= new Token("soldato",image,1,10,10,3,5,1,1,0);
+    token[0]= make_unique<Token>("soldato",image,1,10,10,3,5,1,1,0);
     image.loadFromFile("../Sprites/Mage.png");
-    token[1]= new Token("mago",image,1,8,15,0,4,2,0,1);
+    token[1]= make_unique<Token>("mago",image,1,8,15,0,4,2,0,1);
     image.loadFromFile("../Sprites/Demon.png");
-    token[2]= new Token("demone",image,2,6,6,6,3,1,5,5);
+    token[2]= make_unique<Token>("demone",image,2,6,6,6,3,1,5,5);
     image.loadFromFile("../Sprites/Octopus.png");
-    token[3]= new Token("polipo(?)",image,2,8,4,6,3,2,3,4);
+    token[3]= make_unique<Token>("polipo(?)",image,2,8,4,6,3,2,3,4);
     image.loadFromFile("../Sprites/Reptilian.png");
-    token[4]= new Token("lucertoloide",image,2,5,8,5,3,1,4,3);
+    token[4]= make_unique<Token>("lucertoloide",image,2,5,8,5,3,1,4,3);
 
     //Colonne
     image.loadFromFile("../Sprites/Column.png");
-    token[5] = new Token("colonna",image,0,20,0,0,0,0,1,1);
-    token[6] = new Token("colonna",image,0,20,0,0,0,0,1,4);
-    token[7] = new Token("colonna",image,0,20,0,0,0,0,5,1);
-    token[8] = new Token("colonna",image,0,20,0,0,0,0,5,4);
+    token[5] = make_unique<Token>("colonna",image,0,20,0,0,0,0,1,1);
+    token[6] = make_unique<Token>("colonna",image,0,20,0,0,0,0,1,4);
+    token[7] = make_unique<Token>("colonna",image,0,20,0,0,0,0,5,1);
+    token[8] = make_unique<Token>("colonna",image,0,20,0,0,0,0,5,4);
 }
 
 void TurnSystem::Update(sf::Vector2i &mousePos) {

@@ -6,7 +6,6 @@
 #define MAIN_CPP_GAME_H
 
 #include "TurnSystem.h"
-#include "Menu.h"
 #include "Screen.h"
 
 enum FASE {menu=0, game=1, win=2, lose=3};

@@ -33,9 +33,10 @@ private:
     Graphics* graphics;
 
     //TOKEN
-    Token* token[9];
-    Token* attacker;
-    Token* attacked;
+    unique_ptr<Token> token[9];
+    //Token* token[9];
+    int attacker;
+    int attacked;
 
     void InizializedToken();
 
