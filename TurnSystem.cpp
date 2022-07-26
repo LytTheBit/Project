@@ -7,7 +7,7 @@
 
 TurnSystem::TurnSystem() {
     this->InizializedToken();
-    graphics=new Graphics();
+    graphics=make_unique<Graphics>();
 }
 TurnSystem::~TurnSystem() {
 
@@ -89,10 +89,10 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
             mouseHeld=true;
             for(int i=0;i<p;i++){
                 if(token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()==1){
-                    attacker = token[i];
-                    std::cout << "Selezionato:" << attacker->GetName() << "\n";
+                    attacker = i;
+                    std::cout << "Selezionato:" << token[attacker]->GetName() << "\n";
 
-                    graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
+                    graphics->PlaceBlu(token[attacker]->GetPosX(),token[attacker]->GetPosY());
 
                     i=9;
                     phase=PHASE::positionSelection;
@@ -116,7 +116,7 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             //Pair src, dest;
 
             //partenza
-            src = make_pair(attacker->GetPosX(), attacker->GetPosY());
+            src = make_pair(token[attacker]->GetPosX(), token[attacker]->GetPosY());
             //arrivo
             dest = make_pair(MouseOnTheBoard(mousePos).x,MouseOnTheBoard(mousePos).y);
 
@@ -132,7 +132,7 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             if(src==dest){
                 phase=PHASE::targetSelection;
             }
-            else if((PositionCheck()==true) && (distance <= attacker->GetSpeed()))
+            else if((PositionCheck()==true) && (distance <= token[attacker]->GetSpeed()))
             {
                 phase=PHASE::motionAnimation;
                 std::cout << '\n' << "perfetto \n";
@@ -150,13 +150,13 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
 void TurnSystem::MoveAnimation() {
     //elenco caselle percorse
 
-    attacker->update(destination[j]);
-    if(attacker->GetPosX() == destination[j].x && attacker->GetPosY() == destination[j].y)
+    token[attacker]->update(destination[j]);
+    if(token[attacker]->GetPosX() == destination[j].x && token[attacker]->GetPosY() == destination[j].y)
         j++;
-    if(attacker->GetPosX() == destination[distance].x && attacker->GetPosY() == destination[distance].y){
+    if(token[attacker]->GetPosX() == destination[distance].x && token[attacker]->GetPosY() == destination[distance].y){
         j=0;
         if(turnOf==TURN_OF::player){
-            graphics->PlaceBlu(attacker->GetPosX(),attacker->GetPosY());
+            graphics->PlaceBlu(token[attacker]->GetPosX(),token[attacker]->GetPosY());
             phase = PHASE::targetSelection;
         }
         else if(turnOf==TURN_OF::computer){
@@ -177,14 +177,14 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
             mouseHeld = true;
             for (int i = 0; i < p; i++) {
                 if (token[i]->sprite.getGlobalBounds().contains(pos.x, pos.y) && token[i]->GetOwner() != 1) {
-                    attacked = token[i];
-                    std::cout << "Vuoi attaccare:" << attacked->GetName() << "\n";
+                    attacked = i;
+                    std::cout << "Vuoi attaccare:" << token[attacked]->GetName() << "\n";
                     i = 9;
-                    int ascisse = abs(attacked->GetPosX() - attacker->GetPosX());
-                    int ordinate = abs(attacked->GetPosY() - attacker->GetPosY());
-                    if ((ascisse + ordinate) <= attacker->GetRange())
+                    int ascisse = abs(token[attacked]->GetPosX() - token[attacker]->GetPosX());
+                    int ordinate = abs(token[attacked]->GetPosY() - token[attacker]->GetPosY());
+                    if ((ascisse + ordinate) <= token[attacker]->GetRange())
                         phase = PHASE::attackAnimation;
-                } else if (attacker->sprite.getGlobalBounds().contains(pos.x, pos.y)) {
+                } else if (token[attacker]->sprite.getGlobalBounds().contains(pos.x, pos.y)) {
                     std::cout << "non vuoi attaccare. \n";
                     turnOf = TURN_OF::computer; //quindi tocca al computer
                     phase = PHASE::pawnSelection; //dopo si rincomincerà da capo
@@ -201,9 +201,9 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
 
 //attacca
 void TurnSystem::AttackAnimation() {
-    std::cout << "è stato attaccato: " << attacked->GetName() << " con " << attacker->GetName() << "\n";
-    attacked->attached(attacker->GetAtk());
-    std::cout << "a " << attacked->GetName() << " sono rimasti " << attacked->GetHp() << "\n";
+    std::cout << "è stato attaccato: " << token[attacked]->GetName() << " con " << token[attacker]->GetName() << "\n";
+    token[attacked]->attached(token[attacker]->GetAtk());
+    std::cout << "a " << token[attacked]->GetName() << " sono rimasti " << token[attacked]->GetHp() << "\n";
     enemy = ENEMY::loading;
     phase = PHASE::pawnSelection;
     DeathCheck();
@@ -220,17 +220,17 @@ void TurnSystem::EnemyLoading() {
         for (int i = 0; i < p; i++) {
             if ((token[i]->GetHp() <= min) && (token[i]->GetOwner() == 1)){
                 min = token[i]->GetHp();
-                attacked = token[i];
+                attacked = i;
             }
         }
-        std::cout << "preso di mira il token piu' debole: " << attacked->GetName() << " \n";
+        std::cout << "preso di mira il token piu' debole: " << token[attacked]->GetName() << " \n";
     }
     else if(control<=5) { //per 5 volte cerco un pezzo casuale
         while (true) {
             int i = rand() % p;
             if (token[i]->GetOwner() == 1) {
-                attacked = token[i];
-                std::cout << "preso di mira: " << attacked->GetName() << " \n";
+                attacked = i;
+                std::cout << "preso di mira: " << token[attacked]->GetName() << " \n";
                 break;
             }
         }
@@ -243,26 +243,26 @@ void TurnSystem::EnemyLoading() {
     //scelta: token da muovere
     for (int l = 0; l < p; l++) {
         if (token[l]->GetOwner() == 2) {
-            attacker = token[l];
-            std::cout << "\nPRESO IN CONSIDERAZIONE: " << attacker->GetName() << " \n";
+            attacker = l;
+            std::cout << "\nPRESO IN CONSIDERAZIONE: " << token[attacker]->GetName() << " \n";
 
             //scenta: dove muovere il token
-            for (int t = 1; t <= attacker->GetRange(); t++) {
+            for (int t = 1; t <= token[attacker]->GetRange(); t++) {
                 int rx = -t;
                 int ry = 0;
                 std::cout << "il pezzo ha un raggio di: " <<t<< "\n";
 
                 for (int f = 0; f <= t*4; f++) {
                     //Pair src, dest;
-                    src.first=attacker->GetPosX();
-                    src.second=attacker->GetPosY();
+                    src.first=token[attacker]->GetPosX();
+                    src.second=token[attacker]->GetPosY();
                     if(control>5){ //nel caso non trovi nessuna pedina da attaccare il computer proverà a prendere il controllo di
                         dest.first = (rand() % 3) + 2 + rx; //una casella centrale. "Prendere" il centro è generalmente sempre
                         dest.second = (rand() % 2) + 2 + ry; //una buona mossa nei giochi di strategia come scacchi
                     }
                     else{
-                        dest.first = attacked->GetPosX() + rx;
-                        dest.second = attacked->GetPosY() + ry;
+                        dest.first = token[attacked]->GetPosX() + rx;
+                        dest.second = token[attacked]->GetPosY() + ry;
                     }
 
                     //std::cout << "prende in consideraztine (" <<rx<< " , " <<ry<< ") \n";
@@ -282,17 +282,17 @@ void TurnSystem::EnemyLoading() {
                         }
                         else{ //è stato trovato un percorso
                             distance=GetDistanza();
-                            std::cout << "il pezzo si muove di' " << attacker->GetSpeed() << " e il percorso e' lungo:"
+                            std::cout << "il pezzo si muove di' " << token[attacker]->GetSpeed() << " e il percorso e' lungo:"
                                       << distance << "\n";
 
-                            if (PositionCheck() && (distance <= attacker->GetSpeed())) {
+                            if (PositionCheck() && (distance <= token[attacker]->GetSpeed())) {
                                 std::cout << "il percorso va bene ed e': \n";
 
                                 enemy = ENEMY::movement;
 
                                 //esce dai vari loop
                                 l = p;
-                                t = attacker->GetRange() + 1;
+                                t = token[attacker]->GetRange() + 1;
                                 f = (t * 4) + 1;
                             } else
                                 std::cout << "non si puo' muovere li \n";
@@ -333,7 +333,7 @@ void TurnSystem::EnemyLoading() {
 //controlla che due pedine non si sovrappongano
 bool TurnSystem::PositionCheck() {
     for(int i=0;i<p;i++){
-        if((token[i]->GetPosX() != attacker->GetPosX()) || (token[i]->GetPosY() != attacker->GetPosY()))
+        if((token[i]->GetPosX() != token[attacker]->GetPosX()) || (token[i]->GetPosY() != token[attacker]->GetPosY()))
             if(token[i]->GetPosX() == dest.first && token[i]->GetPosY() == dest.second)
                 return false;
     }
@@ -346,9 +346,11 @@ void TurnSystem::DeathCheck() {
     }
 }
 void TurnSystem::Death(int i) {
-    delete token[i];
+    //delete token[i];
     for(i;i<p-1;i++)
-        token[i]=token[i+1];
+        token[ i ] = std::move( token[ i+1 ] );
+    //shared_ptr<Token> token[i] (token[i+1]);
+    //token[i]=token[i];
     p--;
 }
 

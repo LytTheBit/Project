@@ -30,7 +30,7 @@ private:
     int p=9; //quante pedine ho, può essere facilmenye modificato
 
     //graphics
-    Graphics* graphics;
+    unique_ptr<Graphics> graphics;
 
     //TOKEN
     unique_ptr<Token> token[9];
