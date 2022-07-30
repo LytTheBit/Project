@@ -27,7 +27,8 @@ private:
     int j=0;
     int grid[ROW][COL];
     bool mouseHeld=false;
-    int p=9; //quante pedine ho, può essere facilmenye modificato
+    int pawns=9; //quante pedine ho, può essere facilmenye modificato
+    int level=1;
 
     //graphics
     unique_ptr<Graphics> graphics;
@@ -37,9 +38,6 @@ private:
     //Token* token[9];
     int attacker;
     int attacked;
-
-    void InizializedToken();
-
 public:
     //COSTRUTTORE
     TurnSystem();
@@ -73,6 +71,7 @@ public:
     void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
+    void GetLevel();
 
     //ritorna il vincitore
     int Winner();

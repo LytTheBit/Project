@@ -24,7 +24,6 @@ void Game::inizializedClass() {
 Game::Game() {
     inizializedTurnSystem();
     inizializedWindow();
-    //inizializedMusic();
     inizializedClass();
 }
 Game::~Game() {
