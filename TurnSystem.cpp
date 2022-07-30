@@ -8,12 +8,20 @@
 TurnSystem::TurnSystem() {
     GetLevel();
     graphics=make_unique<Graphics>();
+    text=make_unique<Text>();
 }
 TurnSystem::~TurnSystem() {
 
 }
 
 void TurnSystem::Update(sf::Vector2i &mousePos) {
+    //TODO trasformare questo in un metodo per chiamare il testo
+    text->SetLevel(level);
+    for(int i=0; i < pawns; i++)
+        if(token[i]->sprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
+            text->SetUnitName(token[i]->GetName());
+            //text->SetUnitName(token[i]->GetHp(),token[i]->GetAtk(),token[i]->GetDef()); TODO aggiungere le stat al testo
+        }
     switch (this->turnOf) {
         case TURN_OF::player:
             control=0;
@@ -357,6 +365,7 @@ void TurnSystem::Render(sf::RenderTarget& target) {
     graphics->render(target);
     for(int i=0; i < pawns; i++)
         this->token[i]->render(target);
+    text->GetText(target);//pubblica il testo
 }
 
 void TurnSystem::UpdatePath(){

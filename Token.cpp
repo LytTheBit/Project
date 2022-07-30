@@ -70,8 +70,6 @@ int Token::GetOwner() {
 }
 
 
-
-
 //FUNZIONI
 void Token::update(sf::Vector2i& mousePos){//aggiorna il token
     sf::Vector2i Pos=mousePos;

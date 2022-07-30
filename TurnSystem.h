@@ -8,6 +8,7 @@
 #include "Token.h"
 #include "AStar.h"
 #include "Graphics.h"
+#include "Text.h"
 
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
@@ -32,6 +33,7 @@ private:
 
     //graphics
     unique_ptr<Graphics> graphics;
+    unique_ptr<Text> text;
 
     //TOKEN
     unique_ptr<Token> token[9];
