@@ -30,6 +30,7 @@ private:
     bool mouseHeld=false;
     int pawns=9; //quante pedine ho, può essere facilmenye modificato
     int level=1;
+    std::string action;
 
     //graphics
     unique_ptr<Graphics> graphics;
@@ -37,7 +38,6 @@ private:
 
     //TOKEN
     unique_ptr<Token> token[9];
-    //Token* token[9];
     int attacker;
     int attacked;
 public:

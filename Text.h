@@ -6,6 +6,8 @@
 #define TURNSYSTEM_CPP_TEXT_H
 
 #include "Librerie.h"
+#include "Token.h"
+
 
 class Text {
 private:
@@ -13,12 +15,13 @@ private:
     sf::Text levelText;
     sf::Text unitNameText;
     sf::Text unitStatText;
+    sf::Text actionText;
 public:
     Text();
     ~Text();
     void SetLevel(int level);
-    void SetUnitName(std::string testo);
-    void SetUnitStat(std::string testo);
+    void SetUnitText(std::string name, int life, int attack, int defance, int speed, int range);
+    void SetActionText(std::string testo);
     void GetText(sf::RenderTarget& target);
 };
 

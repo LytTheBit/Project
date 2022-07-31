@@ -19,8 +19,8 @@ void TurnSystem::Update(sf::Vector2i &mousePos) {
     text->SetLevel(level);
     for(int i=0; i < pawns; i++)
         if(token[i]->sprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
-            text->SetUnitName(token[i]->GetName());
-            //text->SetUnitName(token[i]->GetHp(),token[i]->GetAtk(),token[i]->GetDef()); TODO aggiungere le stat al testo
+            text->SetUnitText(token[i]->GetName(), token[i]->GetHp(),token[i]->GetAtk(),token[i]->GetDef(),token[i]->GetSpeed(),token[i]->GetRange());
+            text->SetActionText(action);
         }
     switch (this->turnOf) {
         case TURN_OF::player:
@@ -75,7 +75,8 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
             for(int i=0; i < pawns; i++){
                 if(token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()==1){
                     attacker = i;
-                    std::cout << "Selezionato:" << token[attacker]->GetName() << "\n";
+                    //std::cout << "Selezionato:" << token[attacker]->GetName() << "\n";
+                    action="Selezionato: "+token[attacker]->GetName();
 
                     graphics->PlaceBlu(token[attacker]->GetPosX(),token[attacker]->GetPosY());
 
@@ -83,7 +84,8 @@ void TurnSystem::WhoMoves(sf::Vector2i &pos) {
                     phase=PHASE::positionSelection;
                 }
                 else if (token[i]->sprite.getGlobalBounds().contains(pos.x,pos.y) && token[i]->GetOwner()!=1){
-                    std::cout << "non e' una tua pedina, selezionane un altra \n";
+                    //std::cout << "non e' una tua pedina, selezionane un altra \n";
+                    action = "non e' una tua pedina, selezionane un altra";
                 }
             }
         }
@@ -120,10 +122,12 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             else if((PositionCheck()==true) && (distance <= token[attacker]->GetSpeed()))
             {
                 phase=PHASE::motionAnimation;
-                std::cout << '\n' << "perfetto \n";
+                //std::cout << '\n' << "perfetto \n";
+                action = "Perfetto, "+token[attacker]->GetName()+" si sposta di: "+std::to_string(distance);
             }
             else{
-                std::cout << '\n' << "il personaggio non puo' muoversi li, cambia destination \n";
+                //std::cout << '\n' << "il personaggio non puo' muoversi li, cambia destination \n";
+                action = "il personaggio non puo' muoversi li, cambia destination";
             }
         }
     }
@@ -163,19 +167,19 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
             for (int i = 0; i < pawns; i++) {
                 if (token[i]->sprite.getGlobalBounds().contains(pos.x, pos.y) && token[i]->GetOwner() != 1) {
                     attacked = i;
-                    std::cout << "Vuoi attaccare:" << token[attacked]->GetName() << "\n";
+                    //std::cout << "Vuoi attaccare:" << token[attacked]->GetName() << "\n";
                     i = 9;
                     int ascisse = abs(token[attacked]->GetPosX() - token[attacker]->GetPosX());
                     int ordinate = abs(token[attacked]->GetPosY() - token[attacker]->GetPosY());
                     if ((ascisse + ordinate) <= token[attacker]->GetRange())
                         phase = PHASE::attackAnimation;
                 } else if (token[attacker]->sprite.getGlobalBounds().contains(pos.x, pos.y)) {
-                    std::cout << "non vuoi attaccare. \n";
+                    action ="non vuoi attaccare";
                     turnOf = TURN_OF::computer; //quindi tocca al computer
                     phase = PHASE::pawnSelection; //dopo si rincomincerà da capo
                     i = 9;
                 } else if (token[i]->sprite.getGlobalBounds().contains(pos.x, pos.y) && token[i]->GetOwner() == 1) {
-                    std::cout << "non puoi attaccare una tua pedina \n";
+                    action = "non puoi attaccare una tua pedina";
                 }
             }
         }
@@ -186,9 +190,9 @@ void TurnSystem::WhoAttacks(sf::Vector2i &pos) {
 
 //attacca
 void TurnSystem::AttackAnimation() {
-    std::cout << "è stato attaccato: " << token[attacked]->GetName() << " con " << token[attacker]->GetName() << "\n";
+    action ="E' stato attaccato: " + token[attacked]->GetName() + " con " + token[attacker]->GetName();
     token[attacked]->attached(token[attacker]->GetAtk());
-    std::cout << "a " << token[attacked]->GetName() << " sono rimasti " << token[attacked]->GetHp() << "\n";
+    //std::cout << "a " << token[attacked]->GetName() << " sono rimasti " << token[attacked]->GetHp() << "\n";
     enemy = ENEMY::loading;
     phase = PHASE::pawnSelection;
     DeathCheck();
