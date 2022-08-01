@@ -6,44 +6,35 @@
 
 //--funzioni private--
 void Game::inizializedTurnSystem() {
-    this->turnSystem= new TurnSystem();
+    turnSystem = make_unique<TurnSystem>(Start());
 }
 void Game::inizializedWindow() {
     //crea la finestra
-    this->window = new sf::RenderWindow(sf::VideoMode(864, 864), "SFML Application");
+    window = make_unique<sf::RenderWindow>(sf::VideoMode(864, 864), "Reisende: protect the castle");
     //imposta il frame-rate massimo
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-}
-void Game::inizializedMusic() {
-    //music.openFromFile("../Theme/Greenpath.ogg")
-    //music.getLoopPoints();
+    window->setFramerateLimit(144);
+    window->setVerticalSyncEnabled(false);
 }
 void Game::inizializedClass() {
-    menu=new Menu();
-    arena=new Arena();
+    screen = make_unique<Screen>();
 }
 
 
 //--costruttore e distruttore--
 Game::Game() {
-    this->inizializedTurnSystem();
-    this->inizializedWindow();
-    //inizializedMusic();
-    this->inizializedClass();
+    inizializedTurnSystem();
+    inizializedWindow();
+    inizializedClass();
 }
 Game::~Game() {
-    delete this->turnSystem;
-    delete this->window;
-    delete this->arena;
 }
 
 
 //--Accesso--
 void Game::run() {
     while(this->window->isOpen()){
-        this->update();
-        this->render();
+        update();
+        render();
     }
 }
 
@@ -51,13 +42,12 @@ void Game::run() {
 //--funzioni pubbliche--
 void Game::update() {
     sf::Event event;
-    //music.play();
-    while (this->window->pollEvent(event))//Chiude il gioco premendo sulla X
+    while (window->pollEvent(event))//Chiude il gioco premendo sulla X
     {
         if (event.Event::type == sf::Event::Closed)
-            this->window->close();
+            window->close();
     }
-    this->updateMouse();
+    updateMouse();
 
     switch (this->fase) {
         case FASE::menu:
@@ -65,49 +55,52 @@ void Game::update() {
                 fase=FASE::game;
             break;
         case FASE::game:
-            this->updatePointer();
-            this->updateTurnSystem();
+            cout<<"\nE";
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                Save();
+            cout<<"\nF";
+            updatePointer();
+            updateTurnSystem();
+            cout<<"\nG";
+
             break;
         case FASE::win:
+            ClearSave();
 
             break;
         case FASE::lose:
-
+            ClearSave();
             break;
     }
 }
 void Game::updateTurnSystem() {
-    this->turnSystem->Update(this->mousePos);
+    turnSystem->Update(mousePos);
 }
 void Game::updateMouse() {//Aggiorno la variabile contenente la posizione del mause
-    this->mousePos = sf::Mouse::getPosition(*this->window);
+    mousePos = sf::Mouse::getPosition(*window);
 }
 void Game::updatePointer() {
-    this->arena->update(this->mousePos);//passo la variabile contenente la posizione del mause al oggetto arena
-}
-
-void Game::renderMenu(int scope) {
-    this->menu->render(*this->window, scope);
+    screen->update(mousePos);//passo la variabile contenente la posizione del mause al oggetto screen
 }
 void Game::renderToken() {
-    this->turnSystem->Render(*this->window);
+    turnSystem->Render(*window);
 }
-void Game::renderArena() {
-    this->arena->render(*this->window);
+void Game::renderArena(int scope) {
+    screen->render(*window, scope);
 }
 void Game::render() {
-    this->window->clear();
-    this->update();
+    window->clear();
+    update();
 
     //spazio per disegnare il gioco
-    switch (this->fase) {
+    switch (fase) {
         case FASE::menu:
-            renderMenu(0);
+            renderArena(0);
             break;
 
         case FASE::game:
-            this->renderArena();
-            this->renderToken();
+            renderArena(3);
+            renderToken();
 
             if(turnSystem->Winner()==1)
                 fase=FASE::win;
@@ -116,24 +109,45 @@ void Game::render() {
             break;
 
         case FASE::win:
-            renderMenu(1);
+            renderArena(1);
             break;
 
         case FASE::lose:
-            renderMenu(2);
+            renderArena(2);
             break;
     }
-    this->window->display();
+    window->display();
 }
 
+int Game::Start() {
+    ifstream MyReadFile("../Save.txt");
+    int livello;
+    cout<<"A";
+    if (MyReadFile.peek() == ifstream::traits_type::eof()){
+        cout<<"B";
+        livello=1;
+    }
+    else{
+        cout<<"C";
+        MyReadFile >> livello;
+    }
+    cout<<"D";
+    return livello;
+    //cout<<turnSystem->GetLevel();
+    //MyReadFile.close();
+}
 
+void Game::Save() {
+    ofstream MyFile("../Save.txt");
+    MyFile << turnSystem->GetLevel();
+    MyFile.close();
+}
 
-
-
-
-
-
-
-
-
-
+void Game::ClearSave() {
+    int status = remove("../Save.txt");
+    if(status==0)
+        cout<<"\nFile Deleted Successfully!";
+    else
+        cout<<"\nError Occurred!";
+    cout<<endl;
+}

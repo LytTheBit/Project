@@ -8,6 +8,7 @@
 #include "Token.h"
 #include "AStar.h"
 #include "Graphics.h"
+#include "Text.h"
 
 enum TURN_OF {player=0, computer=1};
 enum PHASE {pawnSelection=0, positionSelection=1, motionAnimation=2, targetSelection=3, attackAnimation=4};
@@ -27,21 +28,22 @@ private:
     int j=0;
     int grid[ROW][COL];
     bool mouseHeld=false;
-    int p=9; //quante pedine ho, può essere facilmenye modificato
+    int pawns=9; //quante pedine ho, può essere facilmenye modificato
+    int level;
+    //int level=1;
+    std::string action;
 
     //graphics
-    Graphics* graphics;
+    unique_ptr<Graphics> graphics;
+    unique_ptr<Text> text;
 
     //TOKEN
-    Token* token[9];
-    Token* attacker;
-    Token* attacked;
-
-    void InizializedToken();
-
+    unique_ptr<Token> token[9];
+    int attacker;
+    int attacked;
 public:
     //COSTRUTTORE
-    TurnSystem();
+    TurnSystem(int L);
     //DISTRUTTORE
     virtual ~TurnSystem();
 
@@ -72,9 +74,15 @@ public:
     void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
+    void CreateLevel();
 
     //ritorna il vincitore
     int Winner();
+
+    void SetText(sf::Vector2i &mousePos);
+
+    void SetLevel(int L);
+    int GetLevel();
 };
 
 #endif //MAIN_CPP_TURNSYSTEM_H

@@ -251,7 +251,7 @@ function(py_test name)
   if (PYTHONINTERP_FOUND)
     if (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 3.1)
       if (CMAKE_CONFIGURATION_TYPES)
-	# Multi-configuration build generators as for Visual Studio save
+	# Multi-configuration build generators as for Visual Studio Save
 	# output in a subdirectory of CMAKE_CURRENT_BINARY_DIR (Debug,
 	# Release etc.), so we have to provide it here.
         add_test(
