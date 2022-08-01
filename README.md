@@ -36,10 +36,10 @@ I prossimi obbiettivi nella lista sono:
 
 - [x] rendere funzionanti le varie fasi di un turno
 
-- [ ] creare una cpu funzionante
+- [x] creare una cpu funzionante
 
 - [ ] abbellire l'interfaccia generale
 
 - [ ] aggiungere il cambio visuale durante l'attacco
 
-- [ ] implementare un menu
+- [x] implementare un menu
