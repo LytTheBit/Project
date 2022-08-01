@@ -46,7 +46,7 @@ public:
     void renderArena(int scope);
     void render();
     void Save();
-    void Start();
+    int Start();
     void ClearSave();
 };
 

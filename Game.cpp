@@ -6,7 +6,7 @@
 
 //--funzioni private--
 void Game::inizializedTurnSystem() {
-    turnSystem = make_unique<TurnSystem>();
+    turnSystem = make_unique<TurnSystem>(Start());
 }
 void Game::inizializedWindow() {
     //crea la finestra
@@ -27,7 +27,6 @@ Game::Game() {
     inizializedClass();
 }
 Game::~Game() {
-
 }
 
 
@@ -43,7 +42,6 @@ void Game::run() {
 //--funzioni pubbliche--
 void Game::update() {
     sf::Event event;
-    Start();
     while (window->pollEvent(event))//Chiude il gioco premendo sulla X
     {
         if (event.Event::type == sf::Event::Closed)
@@ -57,10 +55,13 @@ void Game::update() {
                 fase=FASE::game;
             break;
         case FASE::game:
+            cout<<"\nE";
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 Save();
+            cout<<"\nF";
             updatePointer();
             updateTurnSystem();
+            cout<<"\nG";
 
             break;
         case FASE::win:
@@ -69,7 +70,6 @@ void Game::update() {
             break;
         case FASE::lose:
             ClearSave();
-
             break;
     }
 }
@@ -119,22 +119,22 @@ void Game::render() {
     window->display();
 }
 
-void Game::Start() {
+int Game::Start() {
     ifstream MyReadFile("../Save.txt");
     int livello;
     cout<<"A";
     if (MyReadFile.peek() == ifstream::traits_type::eof()){
-        cout<<"C";
+        cout<<"B";
         livello=1;
     }
     else{
-        cout<<"D";
+        cout<<"C";
         MyReadFile >> livello;
     }
-
+    cout<<"D";
+    return livello;
     //cout<<turnSystem->GetLevel();
-    turnSystem->SetLevel(livello);
-    MyReadFile.close();
+    //MyReadFile.close();
 }
 
 void Game::Save() {

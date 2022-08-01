@@ -5,7 +5,8 @@
 #include "TurnSystem.h"
 
 
-TurnSystem::TurnSystem() {
+TurnSystem::TurnSystem(int L) {
+    level=L;
     CreateLevel();
     graphics=make_unique<Graphics>();
     text=make_unique<Text>();
@@ -447,6 +448,7 @@ int TurnSystem::Winner() {
 }
 
 void TurnSystem::CreateLevel() {sf::Image image;
+    cout<<"\nlivello: "<<GetLevel();
     if(level==1) { //LIVELLO 1
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");

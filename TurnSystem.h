@@ -43,7 +43,7 @@ private:
     int attacked;
 public:
     //COSTRUTTORE
-    TurnSystem();
+    TurnSystem(int L);
     //DISTRUTTORE
     virtual ~TurnSystem();
 
