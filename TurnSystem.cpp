@@ -448,7 +448,6 @@ int TurnSystem::Winner() {
 }
 
 void TurnSystem::CreateLevel() {sf::Image image;
-    cout<<"\nlivello: "<<GetLevel();
     if(level==1) { //LIVELLO 1
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");

@@ -55,13 +55,10 @@ void Game::update() {
                 fase=FASE::game;
             break;
         case FASE::game:
-            cout<<"\nE";
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 Save();
-            cout<<"\nF";
             updatePointer();
             updateTurnSystem();
-            cout<<"\nG";
 
             break;
         case FASE::win:
@@ -122,16 +119,12 @@ void Game::render() {
 int Game::Start() {
     ifstream MyReadFile("../Save.txt");
     int livello;
-    cout<<"A";
     if (MyReadFile.peek() == ifstream::traits_type::eof()){
-        cout<<"B";
         livello=1;
     }
     else{
-        cout<<"C";
         MyReadFile >> livello;
     }
-    cout<<"D";
     return livello;
     //cout<<turnSystem->GetLevel();
     //MyReadFile.close();
