@@ -6,7 +6,7 @@
 
 
 TurnSystem::TurnSystem() {
-    GetLevel();
+    CreateLevel();
     graphics=make_unique<Graphics>();
     text=make_unique<Text>();
 }
@@ -15,13 +15,8 @@ TurnSystem::~TurnSystem() {
 }
 
 void TurnSystem::Update(sf::Vector2i &mousePos) {
-    //TODO trasformare questo in un metodo per chiamare il testo
-    text->SetLevel(level);
-    for(int i=0; i < pawns; i++)
-        if(token[i]->sprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
-            text->SetUnitText(token[i]->GetName(), token[i]->GetHp(),token[i]->GetAtk(),token[i]->GetDef(),token[i]->GetSpeed(),token[i]->GetRange());
-            text->SetActionText(action);
-        }
+    SetText(mousePos);
+
     switch (this->turnOf) {
         case TURN_OF::player:
             control=0;
@@ -328,6 +323,8 @@ bool TurnSystem::PositionCheck() {
     }
     return true;
 }
+
+//Serve per le pedine morte
 void TurnSystem::DeathCheck() {
     for(int i=0; i < pawns; i++){
         if(token[i]->GetHp()<=0)
@@ -342,8 +339,6 @@ void TurnSystem::Death(int i) {
     //token[i]=token[i];
     pawns--;
 }
-
-
 
 
 //controllo del mouse
@@ -372,6 +367,7 @@ void TurnSystem::Render(sf::RenderTarget& target) {
     text->GetText(target);//pubblica il testo
 }
 
+//aggiorna il percorso
 void TurnSystem::UpdatePath(){
     //elenco caselle percorse
     for(int i=0; i <= distance; i++){
@@ -407,7 +403,7 @@ int TurnSystem::Winner() {
             return 2;
         else if (enemy == 0) {
             level++;
-            GetLevel();
+            CreateLevel();
             turnOf = TURN_OF::player;
             phase = PHASE::pawnSelection;
             enemy = ENEMY::loading;
@@ -426,7 +422,7 @@ int TurnSystem::Winner() {
             return 2;
         else if (enemy == 0) {
             level++;
-            GetLevel();
+            CreateLevel();
             turnOf = TURN_OF::player;
             phase = PHASE::pawnSelection;
             enemy = ENEMY::loading;
@@ -450,66 +446,82 @@ int TurnSystem::Winner() {
     }
 }
 
-void TurnSystem::GetLevel() {sf::Image image;
+void TurnSystem::CreateLevel() {sf::Image image;
     if(level==1) { //LIVELLO 1
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");
-        token[0] = make_unique<Token>("soldato", image, 1, 10, 10, 3, 5, 1, 1, 0);
+        token[0] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 1, 0);
         image.loadFromFile("../Sprites/Mage.png");
-        token[1] = make_unique<Token>("mago", image, 1, 8, 15, 0, 4, 2, 0, 1);
+        token[1] = make_unique<Token>("Sago", image, 1, 8, 15, 0, 4, 2, 0, 1);
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("demone", image, 2, 6, 6, 6, 3, 1, 5, 5);
+        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 5, 5);
         image.loadFromFile("../Sprites/Octopus.png");
-        token[3] = make_unique<Token>("polipo(?)", image, 2, 8, 4, 6, 3, 2, 3, 4);
+        token[3] = make_unique<Token>("Polipo", image, 2, 8, 4, 6, 3, 2, 3, 4);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[4] = make_unique<Token>("lucertoloide", image, 2, 5, 8, 5, 3, 1, 4, 3);
+        token[4] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 4, 3);
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[5] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 1);
-        token[6] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 4);
-        token[7] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 1);
-        token[8] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 4);
+        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 1);
+        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 4);
+        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 1);
+        token[8] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 4);
         pawns=9;
     }
     else if(level==2){ //LIVELLO 2
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");
-        token[0] = make_unique<Token>("soldato", image, 1, 10, 10, 3, 5, 1, 2, 0);
-        token[1] = make_unique<Token>("soldato", image, 1, 10, 10, 3, 5, 1, 4, 0);
+        token[0] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 2, 0);
+        token[1] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 4, 0);
 
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("demone", image, 2, 6, 6, 6, 3, 1, 2, 3);
+        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 2, 3);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[3] = make_unique<Token>("lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 4);
+        token[3] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 4);
 
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[4] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
-        token[5] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
-        token[6] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
-        token[7] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
+        token[4] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
+        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
+        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
+        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
         pawns=8;
     }
     else if(level==3){ //LIVELLO 3
         //pedine giocanti
         image.loadFromFile("../Sprites/Mage.png");
-        token[0] = make_unique<Token>("mago", image, 1, 8, 15, 0, 4, 2, 1, 0);
-        token[1] = make_unique<Token>("mago", image, 1, 8, 15, 0, 4, 2, 5, 0);
+        token[0] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 1, 0);
+        token[1] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 5, 0);
 
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("demone", image, 2, 6, 6, 6, 3, 1, 3, 4);
+        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 3, 4);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[3] = make_unique<Token>("lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 3);
+        token[3] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 3);
 
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[4] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
-        token[5] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
-        token[6] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
-        token[7] = make_unique<Token>("colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
+        token[4] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
+        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
+        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
+        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
         pawns=8;
     }
+}
+
+void TurnSystem::SetText(sf::Vector2i &mousePos) {
+    text->SetLevel(level);
+    for(int i=0; i < pawns; i++)
+        if(token[i]->sprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
+            text->SetUnitText(token[i]->GetName(), token[i]->GetHp(),token[i]->GetAtk(),token[i]->GetDef(),token[i]->GetSpeed(),token[i]->GetRange());
+        }
+    text->SetActionText(action);
+}
+
+void TurnSystem::SetLevel(int L) {
+    level=L;
+}
+int TurnSystem::GetLevel() {
+    return level;
 }

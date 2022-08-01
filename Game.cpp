@@ -27,6 +27,7 @@ Game::Game() {
     inizializedClass();
 }
 Game::~Game() {
+
 }
 
 
@@ -42,6 +43,7 @@ void Game::run() {
 //--funzioni pubbliche--
 void Game::update() {
     sf::Event event;
+    Start();
     while (window->pollEvent(event))//Chiude il gioco premendo sulla X
     {
         if (event.Event::type == sf::Event::Closed)
@@ -55,13 +57,18 @@ void Game::update() {
                 fase=FASE::game;
             break;
         case FASE::game:
-            this->updatePointer();
-            this->updateTurnSystem();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                Save();
+            updatePointer();
+            updateTurnSystem();
+
             break;
         case FASE::win:
+            ClearSave();
 
             break;
         case FASE::lose:
+            ClearSave();
 
             break;
     }
@@ -110,4 +117,37 @@ void Game::render() {
             break;
     }
     window->display();
+}
+
+void Game::Start() {
+    ifstream MyReadFile("../Save.txt");
+    int livello;
+    cout<<"A";
+    if (MyReadFile.peek() == ifstream::traits_type::eof()){
+        cout<<"C";
+        livello=1;
+    }
+    else{
+        cout<<"D";
+        MyReadFile >> livello;
+    }
+
+    //cout<<turnSystem->GetLevel();
+    turnSystem->SetLevel(livello);
+    MyReadFile.close();
+}
+
+void Game::Save() {
+    ofstream MyFile("../Save.txt");
+    MyFile << turnSystem->GetLevel();
+    MyFile.close();
+}
+
+void Game::ClearSave() {
+    int status = remove("../Save.txt");
+    if(status==0)
+        cout<<"\nFile Deleted Successfully!";
+    else
+        cout<<"\nError Occurred!";
+    cout<<endl;
 }

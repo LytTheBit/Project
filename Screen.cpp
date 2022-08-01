@@ -24,14 +24,14 @@ void Screen::inizializedTexture() {
 void Screen::inizializedSprite() {
     //Il mio inizializedSprite setta come "textureMenu" dello "spriteMenu" la "textureMenu" che
     // vado ad implementere nel metodo "inizializedTexture"
-    this->spriteArena.setTexture(this->textureArena);
+    spriteArena.setTexture(this->textureArena);
     //posizione iniziale dello sfondo
-    this->spriteArena.setPosition(0, 0);
+    spriteArena.setPosition(0, 0);
     //ridimensiona lo sfondo (in questo caso il triplo della dimensione)
-    this->spriteArena.scale(3.f, 3.f);
-    this->spriteRedCursor.setTexture(this->textureRedCursor);
-    this->spriteRedCursor.scale(3.f, 3.f);
-    this->spriteRedCursor.setPosition(startingPointX, startingPointY);
+    spriteArena.scale(3.f, 3.f);
+    spriteRedCursor.setTexture(this->textureRedCursor);
+    spriteRedCursor.scale(3.f, 3.f);
+    spriteRedCursor.setPosition(startingPointX, startingPointY);
 
     //Il mio inizializedSprite setta come "textureMenu" dello "spriteMenu" la "textureMenu" che
     // vado ad implementere nel metodo "inizializedTexture"

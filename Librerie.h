@@ -12,6 +12,7 @@
 #include <tuple>
 #include <algorithm>
 #include <string>
+#include <fstream>
 
 
 //Per iniziare le posizioni sono traslate per via dello sfondo

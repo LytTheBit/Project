@@ -45,6 +45,9 @@ public:
     void renderToken();
     void renderArena(int scope);
     void render();
+    void Save();
+    void Start();
+    void ClearSave();
 };
 
 

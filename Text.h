@@ -11,6 +11,9 @@
 
 class Text {
 private:
+    sf::Texture bachecaTexture;
+    sf::Sprite bachecaSprite;
+
     sf::Font font;
     sf::Text levelText;
     sf::Text unitNameText;
@@ -23,6 +26,7 @@ public:
     void SetUnitText(std::string name, int life, int attack, int defance, int speed, int range);
     void SetActionText(std::string testo);
     void GetText(sf::RenderTarget& target);
+    void SetBacheca();
 };
 
 

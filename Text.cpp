@@ -9,12 +9,15 @@ Text::Text(){
     {
         std::cout<<"error";
     }
+    levelText.setFont(font);
+    unitNameText.setFont(font);
+    unitStatText.setFont(font);
+    SetBacheca();
 }
 Text::~Text() {
 
 }
 void Text::SetLevel(int level){
-    levelText.setFont(font);
     std::string text="Livello: ";
     text += std::to_string(level);
     levelText.setString(text);
@@ -25,20 +28,17 @@ void Text::SetLevel(int level){
 }
 void Text::SetUnitText(std::string name, int life, int attack, int defance, int speed, int range) {
     //stampa il nome del unità
-    unitNameText.setFont(font);
     unitNameText.setString(name);
     unitNameText.setFillColor(sf::Color::White);
     unitNameText.setCharacterSize(24);
     unitNameText.setStyle(sf::Text::Underlined);
-    unitNameText.setPosition(0,0);
+    unitNameText.setPosition(8,0);
     //stampa le statistiche del unità
-    std::string text = "Hp: "+std::to_string(life)+" Atk: "+std::to_string(attack)+ " Def: "+std::to_string(defance)+"\nSpeed: "+std::to_string(speed)+" Ragne: "+std::to_string(range);
-    unitStatText.setFont(font);
+    std::string text = "Hp: "+std::to_string(life)+"  Atk: "+std::to_string(attack)+ "  Def: "+std::to_string(defance)+"\nSpeed: "+std::to_string(speed)+"   Ragne: "+std::to_string(range);
     unitStatText.setString(text);
     unitStatText.setFillColor(sf::Color::White);
     unitStatText.setCharacterSize(18);
-    unitStatText.setPosition(0,24);
-
+    unitStatText.setPosition(4,24);
 }
 
 void Text::SetActionText(std::string testo) {
@@ -50,11 +50,19 @@ void Text::SetActionText(std::string testo) {
 }
 
 void Text::GetText(sf::RenderTarget& target){
+    target.draw(bachecaSprite);
     target.draw(levelText);
     target.draw(unitNameText);
     target.draw(unitStatText);
     target.draw(actionText);
     //target.draw(unitStatText);
+}
+
+void Text::SetBacheca() {
+    bachecaTexture.loadFromFile("../Sprites/Bacheca.png");
+    bachecaSprite.setTexture(bachecaTexture);
+    bachecaSprite.setPosition(-32, -16);
+    bachecaSprite.scale(3, 3);
 }
 
 

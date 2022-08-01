@@ -29,7 +29,8 @@ private:
     int grid[ROW][COL];
     bool mouseHeld=false;
     int pawns=9; //quante pedine ho, può essere facilmenye modificato
-    int level=1;
+    int level;
+    //int level=1;
     std::string action;
 
     //graphics
@@ -73,10 +74,15 @@ public:
     void GenerateMap(int owner);
     //Aggiorna il percorso delle pedine
     void UpdatePath();
-    void GetLevel();
+    void CreateLevel();
 
     //ritorna il vincitore
     int Winner();
+
+    void SetText(sf::Vector2i &mousePos);
+
+    void SetLevel(int L);
+    int GetLevel();
 };
 
 #endif //MAIN_CPP_TURNSYSTEM_H
