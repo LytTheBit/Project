@@ -3,7 +3,7 @@ project(Reisende)
 
 set(CMAKE_CXX_STANDARD 14)
 add_subdirectory(test) #<-aggiunto
-set(SOURCE_FILES Token.cpp Token.h Librerie.cpp Librerie.h TurnSystem.cpp TurnSystem.h) #<-aggiunto
+set(SOURCE_FILES Token.cpp Token.h Librerie.cpp Librerie.h TurnSystem.cpp TurnSystem.h Graphics.cpp Graphics.h AStar.cpp AStar.h Text.cpp Text.h) #<-aggiunto
 add_executable(Reisende main.cpp Librerie.h Librerie.cpp Game.cpp Game.h Screen.cpp Screen.h Token.cpp Token.h TurnSystem.cpp TurnSystem.h Graphics.cpp Graphics.h AStar.cpp AStar.h Text.cpp Text.h)
 add_library(core ${SOURCE_FILES})#<-aggiunti
 target_link_libraries(Reisende core)#<-aggiunti

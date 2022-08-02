@@ -145,7 +145,7 @@ void TurnSystem::MoveAnimation() {
             phase = PHASE::targetSelection;
         }
         else if(turnOf==TURN_OF::computer){
-            if(control<=5)
+            if(control<=3)
                 enemy = ENEMY::attack;
             else{
                 enemy = ENEMY::loading;
@@ -210,7 +210,7 @@ void TurnSystem::EnemyLoading() {
         }
         std::cout << "preso di mira il token piu' debole: " << token[attacked]->GetName() << " \n";
     }
-    else if(control<=5) { //per 5 volte cerco un pezzo casuale
+    else if(control<=3) { //per 5 volte cerco un pezzo casuale
         while (true) {
             int i = rand() % pawns;
             if (token[i]->GetOwner() == 1) {
@@ -453,7 +453,7 @@ void TurnSystem::CreateLevel() {sf::Image image;
         image.loadFromFile("../Sprites/Soldier.png");
         token[0] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 1, 0);
         image.loadFromFile("../Sprites/Mage.png");
-        token[1] = make_unique<Token>("Sago", image, 1, 8, 15, 0, 4, 2, 0, 1);
+        token[1] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 0, 1);
         image.loadFromFile("../Sprites/Demon.png");
         token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 5, 5);
         image.loadFromFile("../Sprites/Octopus.png");
