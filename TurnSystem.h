@@ -6,6 +6,7 @@
 #define MAIN_CPP_TURNSYSTEM_H
 
 #include "Token.h"
+#include "Strategy.h"
 #include "AStar.h"
 #include "Graphics.h"
 #include "Text.h"

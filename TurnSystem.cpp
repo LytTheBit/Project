@@ -199,7 +199,31 @@ void TurnSystem::EnemyLoading() {
     //crea la scacchiera
     GenerateMap(2);
 
-    //TODO https://en.wikipedia.org/wiki/Strategy_pattern
+    std::cout<<"A";
+    if (control<=3) {
+        //TODO https://en.wikipedia.org/wiki/Strategy_pattern
+        Controller* controller;
+        EnemyStrategy* strategy;
+        std::cout<<"B"<<control;
+        //da mettere in TurnSystem.cpp
+        if (control == 0) {
+            strategy = new FirstAttack(std::move(token), pawns);
+        } else {
+            strategy = new WarStrategy(std::move(token), pawns);
+        }
+        std::cout<<"C";
+
+        controller = new Controller(strategy);
+        std::cout<<"D";
+        attacked = controller->WhoToAttack();
+        int A = attacked;
+        cout<< "\nil token:" <<attacked;
+        cout<<"hello,"<<token[A]->GetName()<<"world!";
+        delete strategy;
+        delete controller;
+    }
+
+    /**
     int min=100;
     //scelta: che pezzo attaccare
     if(control==0) { //la prima volta prendo il pezzo con meno vita
@@ -224,6 +248,7 @@ void TurnSystem::EnemyLoading() {
     else{ //alla fine rinuncio ad attaccare, e semplicemente lo sposto
         std::cout << "non attacca nessuno, ma si sposta e basta \n";
     }
+     */
     control++;//ad ogni giro control sale di uno
 
     //scelta: token da muovere
