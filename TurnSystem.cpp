@@ -115,7 +115,7 @@ void TurnSystem::WhereItMoves(sf::Vector2i &mousePos) {
             if(src==dest){
                 phase=PHASE::targetSelection;
             }
-            else if((PositionCheck()==true) && (distance <= token[attacker]->GetSpeed()))
+            else if(PositionCheck() && (distance <= token[attacker]->GetSpeed()))
             {
                 phase=PHASE::motionAnimation;
                 //std::cout << '\n' << "perfetto \n";
@@ -199,6 +199,7 @@ void TurnSystem::EnemyLoading() {
     //crea la scacchiera
     GenerateMap(2);
 
+    //TODO https://en.wikipedia.org/wiki/Strategy_pattern
     int min=100;
     //scelta: che pezzo attaccare
     if(control==0) { //la prima volta prendo il pezzo con meno vita

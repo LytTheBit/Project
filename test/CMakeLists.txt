@@ -14,7 +14,7 @@ include_directories(C:/SFML/include)
 #target_link_libraries(test sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 
 #include_directories(./Sprites)provo a caricare gli sprite
-set(TEST_SOURCE_FILES runAllTests.cpp TokenTest.cpp TokenSuite.cpp TurnSystemSuite.cpp ../Librerie.cpp ../Librerie.h)
+set(TEST_SOURCE_FILES runAllTests.cpp TokenTest.cpp TokenSuite.cpp TurnSystemSuite.cpp ../Librerie.h)
 add_executable(runGameCharacterTests ${TEST_SOURCE_FILES})
 target_link_libraries(runGameCharacterTests gtest gtest_main)
 

@@ -12,7 +12,6 @@ int main()
     music.play();
     music.setLoop(true);
 
-
     Game game;
     game.run();
     cout << "Link end! \n"; //Controllo lo spegnimento
