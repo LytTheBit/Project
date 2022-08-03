@@ -4,7 +4,7 @@
 
 TEST(Token, DefaultConstructor) {
     sf::Image image;
-    image.loadFromFile("../Sprites/null.png");
+    image.loadFromFile("Sprites/null.png");
     Token c("Test-Man",image,1,5,5,5,5, 5,5,5);
     ASSERT_EQ(1, c.GetOwner());
     ASSERT_EQ(5, c.GetHp());

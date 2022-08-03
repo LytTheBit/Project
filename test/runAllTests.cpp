@@ -4,6 +4,7 @@
 #include "../Graphics.cpp"
 #include "../AStar.cpp"
 #include "../Text.cpp"
+#include "../Strategy.cpp"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
