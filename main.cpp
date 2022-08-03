@@ -8,7 +8,7 @@ int main()
     cout << "Link start \n"; //Controllo l'avvio
 
     sf::Music music;
-    music.openFromFile("../Theme/Greenpath.ogg");
+    music.openFromFile("Theme/Greenpath.ogg");
     music.play();
     music.setLoop(true);
 
