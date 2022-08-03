@@ -199,27 +199,20 @@ void TurnSystem::EnemyLoading() {
     //crea la scacchiera
     GenerateMap(2);
 
-    std::cout<<"A";
     if (control<=3) {
-        //TODO https://en.wikipedia.org/wiki/Strategy_pattern
         Controller* controller;
-        EnemyStrategy* strategy;
-        std::cout<<"B"<<control;
+        unique_ptr<EnemyStrategy> strategy;
         //da mettere in TurnSystem.cpp
         if (control == 0) {
-            strategy = new FirstAttack(std::move(token), pawns);
+            strategy = make_unique<FirstAttack>(token, pawns);
         } else {
-            strategy = new WarStrategy(std::move(token), pawns);
+            strategy = make_unique<WarStrategy>(token, pawns);
         }
-        std::cout<<"C";
 
-        controller = new Controller(strategy);
-        std::cout<<"D";
+        controller = new Controller(std::move(strategy));
         attacked = controller->WhoToAttack();
-        int A = attacked;
-        cout<< "\nil token:" <<attacked;
-        cout<<"hello,"<<token[A]->GetName()<<"world!";
-        delete strategy;
+        cout<<token[attacked]->GetName();
+        //delete strategy;
         delete controller;
     }
 
@@ -248,7 +241,8 @@ void TurnSystem::EnemyLoading() {
     else{ //alla fine rinuncio ad attaccare, e semplicemente lo sposto
         std::cout << "non attacca nessuno, ma si sposta e basta \n";
     }
-     */
+     */ //vecchio codice
+
     control++;//ad ogni giro control sale di uno
 
     //scelta: token da muovere
@@ -477,62 +471,62 @@ void TurnSystem::CreateLevel() {sf::Image image;
     if(level==1) { //LIVELLO 1
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");
-        token[0] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 1, 0);
+        token[0] = make_shared<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 1, 0);
         image.loadFromFile("../Sprites/Mage.png");
-        token[1] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 0, 1);
+        token[1] = make_shared<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 0, 1);
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 5, 5);
+        token[2] = make_shared<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 5, 5);
         image.loadFromFile("../Sprites/Octopus.png");
-        token[3] = make_unique<Token>("Polipo", image, 2, 8, 4, 6, 3, 2, 3, 4);
+        token[3] = make_shared<Token>("Polipo", image, 2, 8, 4, 6, 3, 2, 3, 4);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[4] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 4, 3);
+        token[4] = make_shared<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 4, 3);
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 1);
-        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 4);
-        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 1);
-        token[8] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 4);
+        token[5] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 1);
+        token[6] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 4);
+        token[7] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 1);
+        token[8] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 4);
         pawns=9;
     }
     else if(level==2){ //LIVELLO 2
         //pedine giocanti
         image.loadFromFile("../Sprites/Soldier.png");
-        token[0] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 2, 0);
-        token[1] = make_unique<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 4, 0);
+        token[0] = make_shared<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 2, 0);
+        token[1] = make_shared<Token>("Soldato", image, 1, 10, 10, 3, 5, 1, 4, 0);
 
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 2, 3);
+        token[2] = make_shared<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 2, 3);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[3] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 4);
+        token[3] = make_shared<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 4);
 
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[4] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
-        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
-        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
-        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
+        token[4] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
+        token[5] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
+        token[6] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
+        token[7] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
         pawns=8;
     }
     else if(level==3){ //LIVELLO 3
         //pedine giocanti
         image.loadFromFile("../Sprites/Mage.png");
-        token[0] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 1, 0);
-        token[1] = make_unique<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 5, 0);
+        token[0] = make_shared<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 1, 0);
+        token[1] = make_shared<Token>("Mago", image, 1, 8, 15, 0, 4, 2, 5, 0);
 
         image.loadFromFile("../Sprites/Demon.png");
-        token[2] = make_unique<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 3, 4);
+        token[2] = make_shared<Token>("Demone", image, 2, 6, 6, 6, 3, 1, 3, 4);
         image.loadFromFile("../Sprites/Reptilian.png");
-        token[3] = make_unique<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 3);
+        token[3] = make_shared<Token>("Lucertoloide", image, 2, 5, 8, 5, 3, 1, 2, 3);
 
 
         //Colonne
         image.loadFromFile("../Sprites/Column.png");
-        token[4] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
-        token[5] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
-        token[6] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
-        token[7] = make_unique<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
+        token[4] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 2);
+        token[5] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 1, 3);
+        token[6] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 2);
+        token[7] = make_shared<Token>("Colonna", image, 0, 20, 0, 0, 0, 0, 5, 3);
         pawns=8;
     }
 }

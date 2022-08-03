@@ -5,13 +5,14 @@
 #ifndef MAIN_CPP_STRATEGY_H
 #define MAIN_CPP_STRATEGY_H
 
+#include <memory>
 #include "Librerie.h"
 #include "Token.h"
 
 //TreadMill Class (Base class of different strategy)
 class EnemyStrategy{
 protected:
-    std::unique_ptr<Token> token[9];
+    std::shared_ptr<Token> token[9];
 public:
     virtual int Start() = 0;
 };
@@ -19,9 +20,9 @@ public:
 class FirstAttack : public EnemyStrategy{
 public:
     int pawns;
-    FirstAttack(std::unique_ptr<Token> pieces[9], int p){
+    FirstAttack(std::shared_ptr<Token> pieces[9], int p){
         for(int i=0; i<p; i++){
-            token[i] = std::move(pieces[i]);
+            token[i] = pieces[i];
             std::cout<<token[i]->GetName()<<"\n";
         }
         pawns=p;
@@ -46,9 +47,9 @@ public:
 class WarStrategy: public EnemyStrategy{
 public:
     int pawns;
-    WarStrategy(std::unique_ptr<Token> pieces[9], int p){
+    WarStrategy(std::shared_ptr<Token> pieces[9], int p){
         for(int i=0; i<p; i++)
-            token[i] = std::move(pieces[i]);
+            token[i] = pieces[i];
         pawns=p;
     }
     ~WarStrategy(){}
@@ -69,10 +70,10 @@ public:
 
 //Controller
 class Controller{
-    EnemyStrategy* strategy;
+    std::unique_ptr<EnemyStrategy> strategy;
 public:
-    Controller(EnemyStrategy* tm): strategy(tm){
-
+    Controller(std::unique_ptr<EnemyStrategy> tm){
+        strategy = std::move(tm);
     }
     ~Controller(){
 

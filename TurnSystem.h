@@ -39,7 +39,7 @@ private:
     unique_ptr<Text> text;
 
     //TOKEN
-    unique_ptr<Token> token[9];
+    shared_ptr<Token> token[9];
     int attacker;
     int attacked;
 public:
